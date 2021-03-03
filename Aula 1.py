@@ -43,23 +43,3 @@ class Amigo:
             return print('{} está responsável por: {}'.format(self.nome, self.livros))
         else:
             return print('{} não está responsável por nenhum livro'.format(self.nome))
-
-#Cadastro Amigos       
-Lukas = Amigo('Lukas', 999999999, 'lukas.ristow@gmail.com', 2000)
-Vitor = Amigo('Vitor', 999999999, 'vitor.sergio@gmail.com', 2000)
-Davi = Amigo('Davi', 999999999, 'davi.gubler@gmail.com', 2004)
-
-#Cadastro Livros
-Guerra_do_Velho = Livro('Guerra do Velho', '', 'John Scalzi', 'John Perry', 'Ficção Científica', 14)
-Uzumaki = Livro('Uzumaki', '', 'Junji Ito', 'Kirie Goshima', 'Terror', 18)
-lotr = Livro('Senhor dos Anéis: A Sociedade do Anel', '', 'J. R. R. Tolkien', 'Frodo Bolseiro', 'Fantasia', 12)
-
-#Consultas
-Guerra_do_Velho.ver_responsavel()
-Guerra_do_Velho.emprestar(Lukas)
-Guerra_do_Velho.emprestar(Vitor)
-Guerra_do_Velho.ver_responsavel()
-lotr.emprestar(Lukas)
-Lukas.responsavel_livros()
-Uzumaki.emprestar(Davi)
-Davi.responsavel_livros()
