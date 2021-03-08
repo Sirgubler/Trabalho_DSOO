@@ -43,3 +43,5 @@ class Amigo:
             return print('{} está responsável por: {}'.format(self.nome, self.livros))
         else:
             return print('{} não está responsável por nenhum livro'.format(self.nome))
+        
+Otavio = Amigo('Otavio', '99999', 'otavio@gmail.com', 2000)
