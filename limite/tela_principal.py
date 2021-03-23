@@ -1,5 +1,3 @@
-from controle.controlador_principal import ControladorPrincipal
-
 class TelaPrincipal():
 
     def __init__(self):
@@ -10,4 +8,4 @@ class TelaPrincipal():
         print("1 - Menu Livros")
         print("2 - Menu Usuários")
         print("0 - Sair")
-        return int(input("Selecione a opção desejada:"))
+        return int(input("Selecione a opção desejada: "))
