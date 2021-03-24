@@ -1,40 +1,45 @@
 from limite.tela_principal import TelaPrincipal
 from controle.controlador_leitor import ControladorLeitor
+from controle.controlador_livro import ControladorLivro
+from controle.controlador_critico import ControladorCritico
+from controle.controlador_admin import ControladorAdmin
 
 class ControladorPrincipal:
 
     def __init__(self):
         self.__tela_principal = TelaPrincipal()
         self.__controlador_leitor = ControladorLeitor(self)
+        self.__controlador_livro = ControladorLivro(self)
+        self.__controlador_critico = ControladorCritico(self)
+        self.__controlador_admin = ControladorAdmin(self)
 
-    def inicializa_sistema(self):
-        self.abre_tela_principal()
+    def iniciar_sistema(self):
+        self.abrir_tela()
 
-    def livro(self):
+    def controlador_livro(self):
         print('Menu Livro')
         pass
 
-    def usuario(self):
-        self.abre_tela_usuario()
+    def controlador_usuario(self):
+        self.abrir_tela_usuario()
 
-    def leitor(self):
-        print('Menu Leitor')
-        pass
+    def controlador_leitor(self):
+        self.__controlador_leitor.abrir_tela_usuario()
 
-    def critico(self):
+    def controlador_critico(self):
         print('Menu Critico')
         pass
 
-    def admin(self):
+    def controlador_admin(self):
         print('Menu Admin')
         pass
 
     def encerra_sistema(self):
         exit(0)
 
-    def abre_tela_principal(self):
+    def abrir_tela(self):
     
-        opcoes = {1: self.livro, 2: self.usuario, 0: self.encerra_sistema}
+        opcoes = {1: self.controlador_livro, 2: self.controlador_usuario, 0: self.encerra_sistema}
 
         while True:
 
@@ -44,9 +49,9 @@ class ControladorPrincipal:
 
             funcao_escolhida()
 
-    def abre_tela_usuario(self):
+    def abrir_tela_usuario(self):
 
-        opcoes = {1: self.leitor, 2: self.critico, 3: self.admin, 0: self.inicializa_sistema}
+        opcoes = {1: self.controlador_leitor, 2: self.controlador_critico, 3: self.controlador_admin, 0: self.iniciar_sistema}
 
         while True:
 
