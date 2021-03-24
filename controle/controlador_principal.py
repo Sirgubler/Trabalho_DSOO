@@ -18,7 +18,6 @@ class ControladorPrincipal:
 
     def controlador_livro(self):
         print('Menu Livro')
-        pass
 
     def controlador_usuario(self):
         self.abrir_tela_usuario()
@@ -28,11 +27,9 @@ class ControladorPrincipal:
 
     def controlador_critico(self):
         print('Menu Critico')
-        pass
 
     def controlador_admin(self):
         print('Menu Admin')
-        pass
 
     def encerra_sistema(self):
         exit(0)
