@@ -8,7 +8,7 @@ class ControladorLeitor():
         self.__manter_tela_aberta = True
 
     def selecionar_leitor(self):
-        pass
+        self.__tela_leitor.selecao_de_leitor(self.livros)
 
     def cadastrar_leitor(self):
         pass
