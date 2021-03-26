@@ -9,7 +9,7 @@ class ControladorLeitor():
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
 
-    #Funcionaria como um login
+    #Espécie de Login
     def selecionar_leitor(self):
 
         opcoes = {0: self.abrir_tela_leitor}
@@ -26,16 +26,13 @@ class ControladorLeitor():
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida()
 
-        #leitor = self.__tela_leitor.selecao_de_leitor(self.leitores)
-        #self.abrir_menu_leitor(leitor)
-
     def cadastrar_leitor(self):
         nome = self.__tela_leitor.cadastro_de_leitor()
         leitor = Leitor(nome)
         self.leitores.append(leitor)
 
     def retornar_livros(self, leitor: Leitor):
-        print('Livros lidos')
+        return leitor.livros_lidos
 
     def incluir_livro_lido(self, leitor: Leitor):
         print('Livro incluido')
