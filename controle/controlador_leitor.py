@@ -15,7 +15,7 @@ class ControladorLeitor():
         opcoes = {0: self.abrir_tela_leitor}
         for leitor in self.leitores:
             n = 1
-            opcoes[n] = leitor
+            opcoes[n] = leitor.nome
             n += 1
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_leitor.selecao_de_leitor(self.leitores)
@@ -31,16 +31,23 @@ class ControladorLeitor():
         leitor = Leitor(nome)
         self.leitores.append(leitor)
 
+    #Vê os livros lidos pelo leitor
     def retornar_livros(self, leitor: Leitor):
-        return leitor.livros_lidos
+        self.__tela_leitor.livros_lidos(leitor.livros_lidos)
 
+    #Inclui um novo livro que o leitor leu
+    #Não confundir com o cadastro de livros da classe Livro
     def incluir_livro_lido(self, leitor: Leitor):
-        print('Livro incluido')
+        #retirar
+        livros = ['livro1', 'livro2', 'livro3'] #Chama os livros cadastrados no sistema
+        livro = int(input('Selecione Livro: '))
+        nota = int(input('Nota: '))
+        leitor.adicionar_livro(livros[livro], nota)
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False
 
-    #Menu principal do  controlador_leitor.
+    #Menu principal do controlador_leitor
     #Não confundir com o abrir_menu_leitor onde estão as opções do leitor após o 'login'
     def abrir_tela_leitor(self):
         opcoes = {1: self.selecionar_leitor, 2: self.cadastrar_leitor, 0: self.voltar_tela_principal}   
@@ -49,6 +56,8 @@ class ControladorLeitor():
             funcao_escolhida = opcoes[opcao_escolhida]
             funcao_escolhida()
 
+    #Menu específico do leitor
+    #Não confundir com o abrir_tela_leitor onde estão as opções de 'login' ou cadastro
     def abrir_menu_leitor(self, leitor: Leitor):
         opcoes = {1: self.retornar_livros, 2: self.incluir_livro_lido, 0: self.selecionar_leitor}
         while self.__manter_tela_aberta:

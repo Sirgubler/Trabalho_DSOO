@@ -3,15 +3,14 @@ from abc import ABC, abstractclassmethod
 class Usuario(ABC):
 
     @abstractclassmethod
-    def __init__(self, nome):
+    def __init__(self, nome: str):
         self.__nome = nome
 
     @property
-    @abstractclassmethod
     def nome(self):
-        pass
+        return self.__nome
 
     @nome.setter
-    @abstractclassmethod
     def nome(self, nome):
-        pass
+        self.__nome = nome
+        

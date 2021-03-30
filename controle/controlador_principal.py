@@ -34,6 +34,7 @@ class ControladorPrincipal:
     def encerra_sistema(self):
         exit(0)
 
+    #Abre a tela inicial do sistema
     def abrir_tela(self):
         opcoes = {1: self.controlador_livro, 2: self.controlador_usuario, 0: self.encerra_sistema}
         while True:
@@ -41,6 +42,7 @@ class ControladorPrincipal:
             funcao_escolhida = opcoes[opcao_escolhida]
             funcao_escolhida()
 
+    #Abre a tela de opções de tipo de usuários (leitor, critico e admin)
     def abrir_tela_usuario(self):
         opcoes = {1: self.controlador_leitor, 2: self.controlador_critico, 3: self.controlador_admin, 0: self.iniciar_sistema}
         while True:
