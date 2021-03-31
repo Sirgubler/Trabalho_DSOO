@@ -29,7 +29,7 @@ class ControladorPrincipal:
         print('Menu Critico')
 
     def controlador_admin(self):
-        print('Menu Admin')
+        self.__controlador_admin.abrir_tela_admin()
 
     def encerra_sistema(self):
         exit(0)

@@ -4,8 +4,8 @@ class TelaAdmin():
         pass
 
     def menu_principal(self):
-        print("----------Menu Principal----------")
-        print("1 - Menu Livros")
-        print("2 - Menu Usuários")
-        print("0 - Sair")
+        print("\n----------Menu Admin----------")
+        print("1 - Ver Críticos")
+        print("2 - Cadastrar Crítico")
+        print("0 - Voltar")
         return int(input("Selecione a opção desejada: "))

@@ -11,14 +11,15 @@ class ControladorLeitor():
 
     #Espécie de Login
     def selecionar_leitor(self):
-
+        leitores = []
         opcoes = {0: self.abrir_tela_leitor}
         for leitor in self.leitores:
             n = 1
-            opcoes[n] = leitor.nome
+            opcoes[n] = leitor
+            leitores.append(leitor.nome)
             n += 1
         while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_leitor.selecao_de_leitor(self.leitores)
+            opcao_escolhida = self.__tela_leitor.selecao_de_leitor(leitores)
             if opcao_escolhida != 0:
                 leitor_escolhido = opcoes[opcao_escolhida]
                 self.abrir_menu_leitor(leitor_escolhido)
@@ -33,16 +34,14 @@ class ControladorLeitor():
 
     #Vê os livros lidos pelo leitor
     def retornar_livros(self, leitor: Leitor):
-        self.__tela_leitor.livros_lidos(leitor.livros_lidos)
+        livros_lidos = leitor.livros_lidos
+        self.__tela_leitor.livros_lidos(livros_lidos)
 
     #Inclui um novo livro que o leitor leu
     #Não confundir com o cadastro de livros da classe Livro
     def incluir_livro_lido(self, leitor: Leitor):
-        #retirar
-        livros = ['livro1', 'livro2', 'livro3'] #Chama os livros cadastrados no sistema
-        livro = int(input('Selecione Livro: '))
-        nota = int(input('Nota: '))
-        leitor.adicionar_livro(livros[livro], nota)
+        livro_nota = self.__tela_leitor.inclusao_de_livro_lido()
+        leitor.adicionar_livro(livro_nota[0], livro_nota[1])
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False
@@ -59,9 +58,10 @@ class ControladorLeitor():
     #Menu específico do leitor
     #Não confundir com o abrir_tela_leitor onde estão as opções de 'login' ou cadastro
     def abrir_menu_leitor(self, leitor: Leitor):
+        nome = leitor.nome
         opcoes = {1: self.retornar_livros, 2: self.incluir_livro_lido, 0: self.selecionar_leitor}
         while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_leitor.menu_leitor(leitor.nome)
+            opcao_escolhida = self.__tela_leitor.menu_leitor(nome)
             if opcao_escolhida != 0:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida(leitor)
