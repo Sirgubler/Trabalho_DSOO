@@ -9,7 +9,7 @@ class ControladorAutor:
         self.__controlador_livro = controlador_livro
 
     def abrir_tela_autor(self):
-        lista_opcoes = {1: self.incluir_autor, 2: self.listar_autores}
+        lista_opcoes = {1: self.incluir_autor, 2: self.listar_autores, 0: self.fechar_tela_autor}
         continua = True
 
         while continua:
@@ -28,3 +28,7 @@ class ControladorAutor:
     def listar_autores(self):
         for autor in self.__autores:
             self.__tela_autor.mostra_autor({"nome": autor.nome})
+
+    def fechar_tela_autor(self):
+        self.abrir_tela_autor().continua = False
+        self.__controlador_livro.abrir_tela_livro
