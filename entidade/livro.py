@@ -1,5 +1,6 @@
 from entidade.autor import Autor
 from entidade.genero import Genero
+from entidade.analise import Analise
 
 class Livro:
     def __init__(self, nome: str, autor: Autor, genero: Genero):

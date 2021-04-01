@@ -7,13 +7,17 @@ class ControladorAutor:
         self.__autores = []
         self.__tela_autor = TelaAutor()
         self.__controlador_livro = controlador_livro
+        self.__manter_tela_aberta = None
 
-    def abrir_tela_autor(self):
+    def abrir_tela_genero(self):
+        self.__manter_tela_aberta = True
         lista_opcoes = {1: self.incluir_autor, 2: self.listar_autores, 0: self.fechar_tela_autor}
-        continua = True
 
-        while continua:
+        while self.__manter_tela_aberta:
             lista_opcoes[self.__tela_autor.tela_opcoes()]()
+
+        if self.__manter_tela_aberta == False:
+            self.__controlador_livro.abrir_tela_livro()
 
     def incluir_autor(self):
         naoexisteAutor = True
@@ -30,5 +34,4 @@ class ControladorAutor:
             self.__tela_autor.mostra_autor({"nome": autor.nome})
 
     def fechar_tela_autor(self):
-        self.abrir_tela_autor().continua = False
-        self.__controlador_livro.abrir_tela_livro
+        self.__manter_tela_aberta = False
