@@ -49,6 +49,7 @@ class ControladorLeitor():
     #Menu principal do controlador_leitor
     #Não confundir com o abrir_menu_leitor onde estão as opções do leitor após o 'login'
     def abrir_tela_leitor(self):
+        self.__manter_tela_aberta = True
         opcoes = {1: self.selecionar_leitor, 2: self.cadastrar_leitor, 0: self.voltar_tela_principal}   
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_leitor.menu_principal()
