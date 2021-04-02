@@ -13,6 +13,14 @@ class Livro:
         self.__analises_criticos = {}
 
     @property
+    def nome(self):
+        return
+
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome 
+        
+    @property
     def titulo(self):
         return self.__titulo
 
