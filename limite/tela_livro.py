@@ -26,6 +26,11 @@ class TelaLivro():
 
         return {"nome": nome, "autor": autor, "genero": genero}
     
+    def mostra_livro(self, dados_livro):
+        print("NOME DO LIVRO: ", dados_livro["nome"])
+        print("NOME DO AUTOR: ", dados_livro["autor"])
+        print("GENERO: ", dados_livro["genero"])
+        
     def cadastro_livro(self):
         pass
 

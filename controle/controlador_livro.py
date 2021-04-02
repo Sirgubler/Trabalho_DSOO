@@ -38,9 +38,9 @@ class ControladorLivro():
             if livro.nome == dados_livros["nome"] and livro.autor == dados_livros["autor"] and livro.genero == dados_livros["genero"]:
                 del(self.__livros[livro])
                             
-
     def listar_livros(self):
-        pass
+        for livro in self.__livros:
+            self.__tela_livro.mostra_livro({"nome": livro.nome, "autor": livro.autor, "genero": livro.genero})
 
     def pesquisar_livro_por_titulo(self):
         pass
