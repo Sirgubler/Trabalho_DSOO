@@ -7,7 +7,7 @@ class ControladorGenero:
         self.__generos = []
         self.__tela_genero = TelaGenero()
         self.__controlador_livro = controlador_livro
-        self.__manter_tela_aberta = None
+        self.__manter_tela_aberta = True
 
     def abrir_tela_genero(self):
         self.__manter_tela_aberta = True
@@ -15,9 +15,8 @@ class ControladorGenero:
 
         while self.__manter_tela_aberta:
             lista_opcoes[self.__tela_genero.tela_opcoes()]()
-
-        if self.__manter_tela_aberta == False:
-            self.__controlador_livro.abrir_tela_livro()
+        
+        self.__controlador_livro.abrir_tela_livro()
 
     def incluir_genero(self):
         naoexisteGenero = True

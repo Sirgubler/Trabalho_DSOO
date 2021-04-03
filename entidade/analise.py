@@ -1,22 +1,20 @@
-from entidade.critico import Critico
-
-class Analise:
-    def __init__(self):
-        self.__critico = None
-        self.__comentario = None
+class Analise():
+    def __init__(self, livro: str, texto: str):
+        self.__livro = livro
+        self.__texto = texto
 
     @property
-    def critico(self):
-        return self.__critico
+    def texto(self):
+        return self.__texto
 
-    @critico.setter
-    def critico(critico: Critico):
-        self.__critico = critico
+    @texto.setter
+    def texto(self, texto):
+        self.__texto = texto
 
     @property
-    def analise(self):
-        return self.__comentario
+    def livro(self):
+        return self.__livro
 
-    @analise.setter
-    def analise(self, analise: str):
-        self.__comentario = analise
+    @livro.setter
+    def livro(self, livro):
+        self.__livro = livro

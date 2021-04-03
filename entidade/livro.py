@@ -7,11 +7,23 @@ class Livro:
         self.__nome = nome
         self.__autor = autor
         self.__genero = genero
-        self.__titulo = None
         self.__notas_leitores = {}
         self.__media_notas = None
         self.__analises_criticos = {}
+        self.__notas = {}
 
+    def adicionar_avaliacao(self, leitor: str, nota: int):
+        notas_dadas = self.__notas
+        notas_dadas.update({leitor:nota}) 
+
+    def adicionar_analise(self, critico: str, critica: str):
+        analises = self.__analises_criticos
+        analises.update({critico:critica})
+    
+    @property
+    def analises_criticos(self):
+        return self.__analises_criticos
+    
     @property
     def nome(self):
         return
@@ -20,14 +32,6 @@ class Livro:
     def nome(self, nome):
         self.__nome = nome 
         
-    @property
-    def titulo(self):
-        return self.__titulo
-
-    @titulo.setter
-    def titulo(self, titulo: str):
-        self.__titulo = titulo
-
     @property
     def autor(self):
         return self.__autor
