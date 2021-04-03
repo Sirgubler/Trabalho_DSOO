@@ -57,5 +57,6 @@ class ControladorPrincipal:
     def ver_analises_criticos(self):
         return self.__controlador_critico.__analises
 
-    def ver_leitores(self):
-        return self.__controlador_leitor.leitores
+    def ver_notas_leitores(self):
+        return self.__controlador_leitor.__notas_leitores
+
