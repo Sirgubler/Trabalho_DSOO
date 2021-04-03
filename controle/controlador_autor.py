@@ -1,9 +1,8 @@
 from entidade.autor import Autor
 from limite.tela_autor import TelaAutor
-from controle.controlador_livro import ControladorLivro
 
 class ControladorAutor:   
-    def __init__(self, controlador_livro: ControladorLivro):        
+    def __init__(self, controlador_livro):        
         self.__autores = []
         self.__tela_autor = TelaAutor()
         self.__controlador_livro = controlador_livro

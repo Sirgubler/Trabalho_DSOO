@@ -1,5 +1,3 @@
-from controle.controlador_genero import ControladorGenero
-
 class TelaGenero:
     def __init__(self):
         pass

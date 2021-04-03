@@ -18,7 +18,7 @@ class ControladorPrincipal:
         self.abrir_tela()
 
     def controlador_livro(self):
-        print('Menu Livro')
+        self.__controlador_livro.abrir_tela_livro()
 
     def controlador_usuario(self):
         self.abrir_tela_usuario()
@@ -53,3 +53,9 @@ class ControladorPrincipal:
 
     def cadastrar_critico(self):
         self.__controlador_critico.cadastrar_critico()
+    
+    def ver_criticos(self):
+        return self.__controlador_critico.criticos
+
+    def ver_leitores(self):
+        return self.__controlador_leitor.leitores

@@ -4,10 +4,10 @@ from entidade.leitor import Leitor
 class ControladorLeitor():
     
     def __init__(self, controlador_principal):
-        self.leitores = []
         self.__tela_leitor = TelaLeitor()
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
+        self.__leitores = []
 
     #Espécie de Login
     def selecionar_leitor(self):

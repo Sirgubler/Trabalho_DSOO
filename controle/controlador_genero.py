@@ -1,9 +1,8 @@
 from entidade.genero import Genero
 from limite.tela_genero import TelaGenero
-from controle.controlador_livro import ControladorLivro
 
 class ControladorGenero:    
-    def __init__(self, controlador_livro: ControladorLivro):        
+    def __init__(self, controlador_livro):        
         self.__generos = []
         self.__tela_genero = TelaGenero()
         self.__controlador_livro = controlador_livro

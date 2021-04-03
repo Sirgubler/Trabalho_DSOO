@@ -2,18 +2,14 @@ from entidade.livro import Livro
 from limite.tela_livro import TelaLivro
 from controle.controlador_autor import ControladorAutor
 from controle.controlador_genero import ControladorGenero
-from controle.controlador_principal import ControladorPrincipal
 from entidade.critico import Critico
-from controle.controlador_critico import ControladorCritico
-from controle.controlador_leitor import ControladorLeitor
+
 class ControladorLivro():
-    def __init__(self, controlador_principal: ControladorPrincipal):
+    def __init__(self, controlador_principal):
         self.__livros = []
         self.__tela_livro = TelaLivro()
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
-        self.__controlador_critico = ControladorCritico
-        self.__controlador_leitor = ControladorLeitor
 
     def abrir_tela_livro(self):
         self.__manter_tela_aberta = True
@@ -51,9 +47,8 @@ class ControladorLivro():
             if livro.nome == busca["nome"]:
                 self.__tela_livro.mostra_livro({"nome": livro.nome, "autor": livro.autor, "genero": livro.genero})
 
-    
     def ver_analises(self):
-        criticos_existentes = self.__controlador_critico.criticos
+        criticos_existentes = self.__controlador_principal.ver_criticos()
         for critico in criticos_existentes:
             for analise in critico.livros_analisados:
                 dados_da_analise = {"analise": analise.texto, "livro": analise.livro}
@@ -65,7 +60,7 @@ class ControladorLivro():
                         livro.adicionar_analise(pessoa,comentario)
 
     def verificar_notas(self):
-        leitores_existentes = self.__controlador_leitor.leitores
+        leitores_existentes = self.__controlador_principal.ver_leitores()
         for leitor in leitores_existentes:
             for leitura in leitor.livros_lidos():
                 dados_da_nota = {"livro": leitura.texto, "nota": leitura.livro}

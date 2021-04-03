@@ -1,5 +1,3 @@
-from controle.controlador_autor import ControladorAutor
-
 class TelaAutor:
     def __init__(self):
         pass

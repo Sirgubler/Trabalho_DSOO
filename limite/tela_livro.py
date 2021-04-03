@@ -1,5 +1,3 @@
-from controle.controlador_livro import ControladorLivro
-
 class TelaLivro():
     def __init__(self):
         pass
