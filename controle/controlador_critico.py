@@ -5,6 +5,7 @@ class ControladorCritico():
 
     def __init__(self, controlador_principal):
         self.__criticos = []
+        self.__analises = {}
         self.__tela_critico = TelaCritico()
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
@@ -13,7 +14,7 @@ class ControladorCritico():
     def selecionar_critico(self):
         criticos = []
         opcoes = {0: self.abrir_tela_critico}
-        for critico in self.criticos:
+        for critico in self.__criticos:
             n = 1
             opcoes[n] = critico
             criticos.append(critico.nome)
@@ -30,7 +31,7 @@ class ControladorCritico():
     def cadastrar_critico(self):
         nome = self.__tela_critico.cadastro_de_critico()
         critico = Critico(nome)
-        self.criticos.append(critico)
+        self.__criticos.append(critico)
 
     #Vê os livros analisados pelo critico
     def retornar_livros(self, critico: Critico):
@@ -71,7 +72,3 @@ class ControladorCritico():
             else:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida()
-
-    @property
-    def criticos(self):
-        return self.criticos

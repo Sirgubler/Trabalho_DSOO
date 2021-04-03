@@ -54,8 +54,8 @@ class ControladorPrincipal:
     def cadastrar_critico(self):
         self.__controlador_critico.cadastrar_critico()
     
-    def ver_criticos(self):
-        return self.__controlador_critico.criticos
+    def ver_analises_criticos(self):
+        return self.__controlador_critico.__analises
 
     def ver_leitores(self):
         return self.__controlador_leitor.leitores
