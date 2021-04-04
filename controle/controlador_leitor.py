@@ -14,8 +14,8 @@ class ControladorLeitor():
     def selecionar_leitor(self):
         leitores = []
         opcoes = {0: self.abrir_tela_leitor}
+        n = 1
         for leitor in self.__leitores:
-            n = 1
             opcoes[n] = leitor
             leitores.append(leitor.nome)
             n += 1
@@ -30,8 +30,7 @@ class ControladorLeitor():
 
     def cadastrar_leitor(self):
         nome = self.__tela_leitor.cadastro_de_leitor()
-        leitor = Leitor(nome)
-        self.__leitores.append(leitor)
+        self.__leitores.append(Leitor(nome))
 
     #Vê os livros lidos pelo leitor
     def retornar_livros(self, leitor: Leitor):

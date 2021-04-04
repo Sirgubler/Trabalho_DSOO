@@ -14,8 +14,8 @@ class ControladorCritico():
     def selecionar_critico(self):
         criticos = []
         opcoes = {0: self.abrir_tela_critico}
+        n = 1
         for critico in self.__criticos:
-            n = 1
             opcoes[n] = critico
             criticos.append(critico.nome)
             n += 1

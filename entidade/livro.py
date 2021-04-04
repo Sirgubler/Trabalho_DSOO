@@ -26,11 +26,11 @@ class Livro:
     
     @property
     def nome(self):
-        return
+        return self.__nome
 
     @nome.setter
     def nome(self, nome):
-        self.__nome = nome 
+        self.__nome = nome
         
     @property
     def autor(self):

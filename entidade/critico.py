@@ -11,7 +11,3 @@ class Critico(Usuario):
         analise = Analise(livro, texto)
         self.analises.append(analise)
         self.livros_analisados[analise.livro] = analise.texto
-
-    @property
-    def livros_analisados(self):
-        return self.livros_analisados
