@@ -22,16 +22,25 @@ class ControladorCritico():
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_critico.selecao_de_critico(criticos)
             if opcao_escolhida != 0:
-                critico_escolhido = opcoes[opcao_escolhida]
-                self.abrir_menu_critico(critico_escolhido)
-            else:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida()
+            elif opcao_escolhida != None:
+                try:
+                    critico_escolhido = opcoes[opcao_escolhida]
+                except Exception:
+                    self.__tela_critico.aviso_erro(opcao_escolhida)
+                else:  
+                    self.abrir_menu_critico(critico_escolhido)
+            else:
+                opcoes[0]()
 
     def cadastrar_critico(self):
         nome = self.__tela_critico.cadastro_de_critico()
-        critico = Critico(nome)
-        self.__criticos.append(critico)
+        for critico in self.__criticos:
+            if nome == critico.nome:
+                self.__tela_critico.aviso_erro(nome)
+                return
+        self.__criticos.append(Critico(nome))
 
     #Vê os livros analisados pelo critico
     def retornar_livros(self, critico: Critico):

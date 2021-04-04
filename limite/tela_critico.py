@@ -44,3 +44,9 @@ class TelaCritico():
         print('\n----------Livros analisados----------')
         for livro in livros_analisados:
             print('{}: {}'.format(livro, livros_analisados[livro]))
+
+    def aviso_erro(self, tipo):
+        if type(tipo) == int:
+            print('ERRO!\nDigite um valor válido!')
+        elif type(tipo) == str:
+            print('ERRO!\nCrítico já cadastrado!')

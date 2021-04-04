@@ -40,16 +40,24 @@ class ControladorPrincipal:
         opcoes = {1: self.controlador_livro, 2: self.controlador_usuario, 0: self.encerra_sistema}
         while True:
             opcao_escolhida = self.__tela_principal.menu_principal()
-            funcao_escolhida = opcoes[opcao_escolhida]
-            funcao_escolhida()
+            try:
+                funcao_escolhida = opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_principal.aviso_erro()
+            else:  
+                funcao_escolhida()
 
     #Abre a tela de opções de tipo de usuários (leitor, critico e admin)
     def abrir_tela_usuario(self):
         opcoes = {1: self.controlador_leitor, 2: self.controlador_critico, 3: self.controlador_admin, 0: self.iniciar_sistema}
         while True:
             opcao_escolhida = self.__tela_principal.menu_usuario()
-            funcao_escolhida = opcoes[opcao_escolhida]
-            funcao_escolhida()
+            try:
+                funcao_escolhida = opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_principal.aviso_erro()
+            else:  
+                funcao_escolhida()
 
     def cadastrar_critico(self):
         self.__controlador_critico.cadastrar_critico()

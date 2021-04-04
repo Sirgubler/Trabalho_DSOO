@@ -21,15 +21,26 @@ class ControladorLeitor():
             n += 1
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_leitor.selecao_de_leitor(leitores)
-            if opcao_escolhida != 0:
-                leitor_escolhido = opcoes[opcao_escolhida]
-                self.abrir_menu_leitor(leitor_escolhido)
-            else:
-                funcao_escolhida = opcoes[opcao_escolhida]
+            if opcao_escolhida == 0:
+                funcao_escolhida = opcoes[opcao_escolhida]  
                 funcao_escolhida()
+            elif opcao_escolhida != None:   
+                try:
+                    leitor_escolhido = opcoes[opcao_escolhida]
+                except Exception:
+                    self.__tela_leitor.aviso_erro(opcao_escolhida)
+                else:  
+                    self.abrir_menu_leitor(leitor_escolhido)
+            else:
+                opcoes[0]()
+
 
     def cadastrar_leitor(self):
         nome = self.__tela_leitor.cadastro_de_leitor()
+        for leitor in self.__leitores:
+            if nome == leitor.nome:
+                self.__tela_leitor.aviso_erro(nome)
+                return
         self.__leitores.append(Leitor(nome))
 
     #Vê os livros lidos pelo leitor
@@ -53,9 +64,13 @@ class ControladorLeitor():
         opcoes = {1: self.selecionar_leitor, 2: self.cadastrar_leitor, 0: self.voltar_tela_principal}   
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_leitor.menu_principal()
-            funcao_escolhida = opcoes[opcao_escolhida]
-            funcao_escolhida()
-
+            try:
+                funcao_escolhida = opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_leitor.aviso_erro(opcao_escolhida)
+            else:  
+                funcao_escolhida()
+    
     #Menu específico do leitor
     #Não confundir com o abrir_tela_leitor onde estão as opções de 'login' ou cadastro
     def abrir_menu_leitor(self, leitor: Leitor):
@@ -63,9 +78,13 @@ class ControladorLeitor():
         opcoes = {1: self.retornar_livros, 2: self.incluir_livro_lido, 0: self.selecionar_leitor}
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_leitor.menu_leitor(nome)
-            if opcao_escolhida != 0:
-                funcao_escolhida = opcoes[opcao_escolhida]
-                funcao_escolhida(leitor)
-            else:
+            if opcao_escolhida == 0:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida()
+            else:
+                try:
+                    funcao_escolhida = opcoes[opcao_escolhida]
+                except Exception:
+                    self.__tela_leitor.aviso_erro(opcao_escolhida)
+                else:  
+                    funcao_escolhida(leitor)
