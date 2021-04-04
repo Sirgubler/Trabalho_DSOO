@@ -8,7 +8,7 @@ class ControladorLeitor():
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
         self.__leitores = []
-        self.__notas_leitores = []
+        self.__notas_leitores = {}
 
     #Espécie de Login
     def selecionar_leitor(self):
