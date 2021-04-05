@@ -8,7 +8,10 @@ class TelaCritico():
         print("----------Menu Principal----------")
         print("1 - Selecionar Critico")
         print("0 - Sair")
-        return int(input("Selecione a opção desejada: "))
+        try:
+            return int(input('Selecione a opção desejada: '))
+        except Exception:
+            print('ERRO!\nDigite apenas números!')
 
     def selecao_de_critico(self, criticos):
         if criticos != []:
@@ -18,29 +21,40 @@ class TelaCritico():
                 print('{} - {}'.format(n, critico))
                 n += 1
             print('0 - Voltar')
-            return int(input("Selecione o critico desejado: "))
+            try:
+                return int(input('Selecione o crítico desejado: '))
+            except Exception:
+                print('ERRO!\nDigite apenas números!')
         else:
-            print('NENHUM critico CADASTRADO!')
+            print('Nenhum crítico cadastrado!')
 
     def cadastro_de_critico(self):
         print('\n----------Cadastro de critico----------')
         return input('Digite o nome do critico: ')
 
     def inclusao_de_livro_analisado(self):
-        livro = input('Selecione Livro: ')
-        analise = str(input('Analise: '))
-        return [livro, analise]
+        analise = input('Analise: ')
+        return analise
 
     #Opções específicas do critico. É chamada pela função abrir_menu_critico()
     def menu_critico(self, nome):
         print('\n----------Menu critico----------')
-        print('critico: {}'.format(nome))
+        print('Critico: {}'.format(nome))
         print('1 - Ver livros analisados')
         print('2 - Incluir um livro analisado')
         print('0 - Voltar')
-        return int(input('Selecione a opção desejada: '))
+        try:
+            return int(input('Selecione a opção desejada: '))
+        except Exception:
+            print('ERRO!\nDigite apenas números!')
 
     def livros_analisados(self, livros_analisados):
         print('\n----------Livros analisados----------')
         for livro in livros_analisados:
             print('{}: {}'.format(livro, livros_analisados[livro]))
+
+    def aviso_erro(self, tipo):
+        if type(tipo) == int:
+            print('ERRO!\nDigite um valor válido!')
+        elif type(tipo) == str:
+            print('ERRO!\nCrítico já cadastrado!')
