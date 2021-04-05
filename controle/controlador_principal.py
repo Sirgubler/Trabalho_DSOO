@@ -66,5 +66,5 @@ class ControladorPrincipal:
         return self.__controlador_critico.__analises
 
     def ver_notas_leitores(self):
-        return self.__controlador_leitor.__notas_leitores
+        return self.__controlador_leitor.__notas
 

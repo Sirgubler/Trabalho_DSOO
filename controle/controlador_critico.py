@@ -54,6 +54,10 @@ class ControladorCritico():
     def incluir_livro_analisado(self, critico: Critico):
         livro_analise = self.__tela_critico.inclusao_de_livro_analisado()
         critico.analisar_livro(livro_analise[0], livro_analise[1])
+        if self.__analises[livro_analise[0]] != []:
+            self.__analises[livro_analise[0]].append(livro_analise[1])
+        else:
+            self.__analises[livro_analise[0]] = [livro_analise[1]]
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False
