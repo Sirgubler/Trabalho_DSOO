@@ -68,8 +68,22 @@ class TelaLivro():
 
     def mostra_media(self, medias):
         for livro in medias.keys():
-            print('---------- Médias ----------')
+            print('---------- MÉDIAS ----------')
             print('{}: {}'. format(livro, medias[livro]))
+
+    def selecao_de_livro(self, livros):
+        if livros != []:
+            n = 1
+            print("\n---------- LIVROS ----------")
+            for livro in livros:
+                print('{} - {}'.format(n, livro))
+                n += 1
+            try:
+                return int(input('Selecione o livro desejado: '))
+            except Exception:
+                print('ERRO!\nDigite apenas números!')
+        else:
+            print('Nenhum livro cadastrado!')
 
     def sucesso_registro(self):
         print("O LIVRO FOI REGISTRADO COM SUCESSO!")

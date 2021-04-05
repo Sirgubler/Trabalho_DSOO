@@ -50,12 +50,16 @@ class ControladorCritico():
     #Inclui um novo livro que o critico analisou
     #Não confundir com o cadastro de livros da classe Livro
     def incluir_livro_analisado(self, critico: Critico):
-        livro_analise = self.__tela_critico.inclusao_de_livro_analisado()
-        critico.analisar_livro(livro_analise[0], livro_analise[1])
-        if livro_analise[0] in self.analises.keys():
-            self.analises[livro_analise[0]].append(livro_analise[1] + '\nAnálise por ' + critico.nome + '\n')
+        livro = self.__controlador_principal.ver_livros()
+        if livro == 0:
+            pass
         else:
-            self.analises[livro_analise[0]] = [livro_analise[1] + '\nAnálise por ' + critico.nome + '\n']
+            livro_analise = self.__tela_critico.inclusao_de_livro_analisado()
+            critico.analisar_livro(livro, livro_analise)
+            if livro in self.analises.keys():
+                self.analises[livro].append(livro_analise + '\nAnálise por ' + critico.nome + '\n')
+            else:
+                self.analises[livro] = [livro_analise + '\nAnálise por ' + critico.nome + '\n']
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False

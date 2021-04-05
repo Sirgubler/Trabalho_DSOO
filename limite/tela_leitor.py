@@ -38,13 +38,16 @@ class TelaLeitor():
         return input('Digite o nome do leitor: ')
 
     def inclusao_de_livro_lido(self):
-        livro = input('Selecione Livro: ')
-        try:
-            nota = int(input('Nota: '))
-        except Exception:
-            print('ERRO!\nDigite apenas números!')
-        else:
-            return [livro, nota]
+        while True:
+            try:
+                nota = int(input('Nota: '))
+            except Exception:
+                print('ERRO!\nDigite apenas números!')
+            else:
+                if nota >= 0 and nota <= 10:
+                    return nota
+                else:
+                    print('Digite um valor entre 0 - 10!')
 
     #Opções específicas do leitor. É chamada pela função abrir_menu_leitor()
     def menu_leitor(self, nome):

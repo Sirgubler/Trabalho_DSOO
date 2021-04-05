@@ -139,6 +139,26 @@ class ControladorLivro():
             media_livros[livro] = sum(notas_livros[livro])/len(notas_livros[livro])
         self.__tela_livro.mostra_media(media_livros)
 
+    def selecionar_livro(self):
+        self.__manter_tela_aberta = True
+        opcoes = {}
+        livros = []
+        n = 1
+        for livro in self.__livros:
+            opcoes[n] = livro.titulo
+            livros.append(livro.titulo)
+            n += 1
+        while self.__manter_tela_aberta:
+            opcao_escolhida = self.__tela_livro.selecao_de_livro(livros)
+            if opcao_escolhida != None:
+                try:
+                    livro_escolhido = opcoes[opcao_escolhida]
+                except Exception:
+                    self.__tela_livro.aviso_erro()
+                else:  
+                    return livro_escolhido
+            else:
+                return 0
 
     def menu_autor(self):
         self.__controlador_autor.abrir_tela_autor()

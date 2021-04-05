@@ -66,5 +66,9 @@ class ControladorPrincipal:
         return self.__controlador_critico.analises
 
     def ver_notas_leitores(self):
-        return self.__controlador_leitor.__notas
+        return self.__controlador_leitor.notas
+    
+    def ver_livros(self):
+        livro = self.__controlador_livro.selecionar_livro()
+        return livro
 

@@ -51,12 +51,13 @@ class ControladorLeitor():
     #Inclui um novo livro que o leitor leu
     #Não confundir com o cadastro de livros da classe Livro
     def incluir_livro_lido(self, leitor: Leitor):
+        livro = self.__controlador_principal.ver_livros()
         livro_nota = self.__tela_leitor.inclusao_de_livro_lido()
-        leitor.adicionar_livro(livro_nota[0], livro_nota[1])
-        if livro_nota[0] in self.notas.keys():
-            self.notas[livro_nota[0]].append(livro_nota[1])
+        leitor.adicionar_livro(livro, livro_nota)
+        if livro in self.notas.keys():
+            self.notas[livro].append(livro_nota)
         else:
-            self.notas[livro_nota[0]] = [livro_nota[1]]
+            self.notas[livro] = [livro_nota]
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False
