@@ -30,7 +30,7 @@ class TelaAutor:
         print("O AUTOR FOI REGISTRADO COM SUCESSO!")
 
     def falha_registro(self):
-        print("O AUTOR JA ESTA REGISTRADO!")
+        print("O AUTOR CONSTA NOS REGISTROS!")
 
     def falha_exclusao(self):
         print("O AUTOR NAO CONSTA NOS REGISTROS!")

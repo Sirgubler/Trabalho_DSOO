@@ -30,7 +30,7 @@ class TelaGenero:
         print("O GENERO FOI REGISTRADO COM SUCESSO!")
 
     def falha_registro(self):
-        print("O GENERO JA ESTA REGISTRADO!")
+        print("O GENERO CONSTA NOS REGISTROS!")
 
     def falha_exclusao(self):
         print("O GENERO NAO CONSTA NOS REGISTROS!")
