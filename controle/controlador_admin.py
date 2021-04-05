@@ -12,8 +12,12 @@ class ControladorAdmin():
         opcoes = {1: self.cadastrar_critico, 0: self.voltar_tela_principal}   
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_admin.menu_principal()
-            funcao_escolhida = opcoes[opcao_escolhida]
-            funcao_escolhida()
+            try:
+                funcao_escolhida = opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_admin.aviso_erro()
+            else:  
+                funcao_escolhida()
 
     def cadastrar_critico(self):
         self.__controlador_principal.cadastrar_critico()

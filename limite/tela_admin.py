@@ -7,4 +7,10 @@ class TelaAdmin():
         print("\n----------Menu Admin----------")
         print("1 - Cadastrar Crítico")
         print("0 - Voltar")
-        return int(input("Selecione a opção desejada: "))
+        try:
+            return int(input('Selecione a opção desejada: '))
+        except Exception:
+            print('ERRO!\nDigite apenas números!')
+
+    def aviso_erro(self):
+        print('ERRO!\nDigite um valor válido!')

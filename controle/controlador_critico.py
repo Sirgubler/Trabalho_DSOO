@@ -21,7 +21,7 @@ class ControladorCritico():
             n += 1
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_critico.selecao_de_critico(criticos)
-            if opcao_escolhida != 0:
+            if opcao_escolhida == 0:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida()
             elif opcao_escolhida != None:
@@ -69,8 +69,12 @@ class ControladorCritico():
         opcoes = {1: self.selecionar_critico, 0: self.voltar_tela_principal}   
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_critico.menu_principal()
-            funcao_escolhida = opcoes[opcao_escolhida]
-            funcao_escolhida()
+            try:
+                funcao_escolhida = opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_critico.aviso_erro(opcao_escolhida)
+            else:  
+                funcao_escolhida()
 
     #Menu específico do critico
     #Não confundir com o abrir_tela_critico onde estão as opções de 'login' ou cadastro
@@ -79,9 +83,13 @@ class ControladorCritico():
         opcoes = {1: self.retornar_livros, 2: self.incluir_livro_analisado, 0: self.selecionar_critico}
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_critico.menu_critico(nome)
-            if opcao_escolhida != 0:
-                funcao_escolhida = opcoes[opcao_escolhida]
-                funcao_escolhida(critico)
-            else:
+            if opcao_escolhida == 0:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida()
+            else:
+                try:
+                    funcao_escolhida = opcoes[opcao_escolhida]
+                except Exception:
+                    self.__tela_critico.aviso_erro(opcao_escolhida)
+                else:  
+                    funcao_escolhida(critico)

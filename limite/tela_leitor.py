@@ -26,7 +26,7 @@ class TelaLeitor():
                         n += 1
                     print('0 - Voltar')
                     try:
-                        return int(input('Selecione a opção desejada: '))
+                        return int(input('Selecione o leitor desejado: '))
                     except Exception:
                         print('ERRO!\nDigite apenas números!')
             else:
