@@ -1,22 +1,39 @@
 class TelaGenero:
+    
     def __init__(self):
         pass
 
     def tela_opcoes(self):
-        print("-------- AUTORES --------")
-        print("Escolha a opcao")
+        print("-------- MENU GENEROS --------")
+        print("Opcoes disponiveis relacionadas a genero")
         print("1 - Incluir Genero")
-        print("2 - Listar Generos")
+        print("2 - Listar Genero")
+        print("3 - Excluir Genero")
         print("0 - Retornar")
+        try:
+            return int(input("Selecione uma opcao : "))
+        except Exception:
+            print('ERRO!\nDigite apenas números!')
 
-        opcao = int(input("Escolha a opcao: "))
-        return opcao
+    def pega_nome_genero(self):
+        nome = input("DIGITE O NOME DO GENERO: ")
 
-    def pega_dados_genero(self):
-        print("-------- INCLUIR GENERO ----------")
-        nome = input("Nome: ")
+        return nome
 
-        return {"nome": nome}
+    def mostra_genero(self, nome_genero):
+        print("EXISTE UM GENERO REGISTRADO DE NOME: ", nome_genero)
 
-    def mostra_genero(self, dados_genero):
-        print("NOME DO GENERO: ", dados_genero["nome"])
+    def falha_busca(self):
+        print("NAO FORAM ENCONTRADOS REGISTROS!")
+
+    def sucesso_registro(self):
+        print("O GENERO FOI REGISTRADO COM SUCESSO!")
+
+    def falha_registro(self):
+        print("O GENERO CONSTA NOS REGISTROS!")
+
+    def falha_exclusao(self):
+        print("O GENERO NAO CONSTA NOS REGISTROS!")
+
+    def aviso_erro(self):
+        print('ERRO!\nDigite um valor válido!')
