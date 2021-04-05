@@ -8,7 +8,7 @@ class ControladorLeitor():
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
         self.__leitores = []
-        self.__notas = {}
+        self.notas = {}
 
     #Espécie de Login
     def selecionar_leitor(self):
@@ -53,10 +53,10 @@ class ControladorLeitor():
     def incluir_livro_lido(self, leitor: Leitor):
         livro_nota = self.__tela_leitor.inclusao_de_livro_lido()
         leitor.adicionar_livro(livro_nota[0], livro_nota[1])
-        if self.__notas[livro_nota[0]] != []:
-            self.__notas[livro_nota[0]].append(livro_nota[1])
+        if livro_nota[0] in self.notas.keys():
+            self.notas[livro_nota[0]].append(livro_nota[1])
         else:
-            self.__notas[livro_nota[0]] = [livro_nota[1]]
+            self.notas[livro_nota[0]] = [livro_nota[1]]
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False

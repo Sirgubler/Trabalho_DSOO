@@ -129,10 +129,16 @@ class ControladorLivro():
         return resultados
 
     def ver_analises(self):
-        pass
+        analises = self.__controlador_principal.ver_analises_criticos()
+        self.__tela_livro.mostra_analises(analises)
 
     def verificar_notas(self):
-        pass
+        notas_livros = self.__controlador_principal.ver_notas_leitores()
+        media_livros = {}
+        for livro in notas_livros.keys():
+            media_livros[livro] = sum(notas_livros[livro])/len(notas_livros[livro])
+        self.__tela_livro.mostra_media(media_livros)
+
 
     def menu_autor(self):
         self.__controlador_autor.abrir_tela_autor()

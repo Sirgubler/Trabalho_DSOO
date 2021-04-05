@@ -5,7 +5,7 @@ class ControladorCritico():
 
     def __init__(self, controlador_principal):
         self.__criticos = []
-        self.__analises = {}
+        self.analises = {}
         self.__tela_critico = TelaCritico()
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
@@ -52,11 +52,10 @@ class ControladorCritico():
     def incluir_livro_analisado(self, critico: Critico):
         livro_analise = self.__tela_critico.inclusao_de_livro_analisado()
         critico.analisar_livro(livro_analise[0], livro_analise[1])
-        if livro_analise[0] in self.__analises.keys():
-            self.__analises[livro_analise[0]].append(livro_analise[1] + ' Análise por ' + critico.nome)
+        if livro_analise[0] in self.analises.keys():
+            self.analises[livro_analise[0]].append(livro_analise[1] + '\nAnálise por ' + critico.nome + '\n')
         else:
-            self.__analises[livro_analise[0]] = [livro_analise[1] + ' Análise por ' + critico.nome]
-        print(self.__analises)
+            self.analises[livro_analise[0]] = [livro_analise[1] + '\nAnálise por ' + critico.nome + '\n']
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False

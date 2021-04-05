@@ -59,6 +59,18 @@ class TelaLivro():
 
         return genero
 
+    def mostra_analises(self, analises):
+        for livro in analises.keys():
+            print('---------- ANALISES ----------')
+            print('{}:\n'. format(livro))
+            for analise in analises[livro]:
+                print(analise)
+
+    def mostra_media(self, medias):
+        for livro in medias.keys():
+            print('---------- Médias ----------')
+            print('{}: {}'. format(livro, medias[livro]))
+
     def sucesso_registro(self):
         print("O LIVRO FOI REGISTRADO COM SUCESSO!")
 
