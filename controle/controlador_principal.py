@@ -71,4 +71,3 @@ class ControladorPrincipal:
     def ver_livros(self):
         livro = self.__controlador_livro.selecionar_livro()
         return livro
-

@@ -3,6 +3,7 @@ class TelaPrincipal():
     def __init__(self):
         pass
 
+    #Opções gerais da classe ControladorPrincipal. É chamada pela função abrir_tela()
     def menu_principal(self):
         while True:
             print("----------Menu Principal----------")
@@ -14,6 +15,7 @@ class TelaPrincipal():
             except Exception:
                 print('ERRO!\nDigite apenas números!')  
 
+    #Opções de seleção de usuário. É chamada pela função abrir_tela_usuario()
     def menu_usuario(self):
         while True:
             print("----------Menu Usuários----------")

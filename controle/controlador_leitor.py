@@ -34,7 +34,6 @@ class ControladorLeitor():
             else:
                 opcoes[0]()
 
-
     def cadastrar_leitor(self):
         nome = self.__tela_leitor.cadastro_de_leitor()
         for leitor in self.__leitores:
