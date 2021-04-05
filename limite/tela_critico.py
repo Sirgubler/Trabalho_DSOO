@@ -34,7 +34,7 @@ class TelaCritico():
 
     def inclusao_de_livro_analisado(self):
         livro = input('Selecione Livro: ')
-        analise = str(input('Analise: '))
+        analise = input('Analise: ')
         return [livro, analise]
 
     #Opções específicas do critico. É chamada pela função abrir_menu_critico()
