@@ -4,12 +4,10 @@ from entidade.analise import Analise
 class Critico(Usuario):
     def __init__(self, nome: str):
         super().__init__(nome)
-        self.livros_analisados = []
+        self.livros_analisados = {}
+        self.analises = []
 
     def analisar_livro(self, livro: str, texto: str):
         analise = Analise(livro, texto)
-        self.livros_analisados.append(analise)
-
-    @property
-    def livros_analisados(self):
-        return self.livros_analisados
+        self.analises.append(analise)
+        self.livros_analisados[analise.livro] = analise.texto

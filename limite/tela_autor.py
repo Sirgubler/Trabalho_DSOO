@@ -1,22 +1,39 @@
 class TelaAutor:
+    
     def __init__(self):
         pass
 
     def tela_opcoes(self):
-        print("-------- AUTORES --------")
-        print("Escolha a opcao")
+        print("-------- MENU AUTORES --------")
+        print("Opcoes disponiveis relacionadas a autor")
         print("1 - Incluir Autor")
         print("2 - Listar Autores")
+        print("3 - Excluir Autor")
         print("0 - Retornar")
+        try:
+            return int(input("Selecione uma opcao : "))
+        except Exception:
+            print('ERRO!\nDigite apenas números!')
 
-        opcao = int(input("Escolha a opcao: "))
-        return opcao
+    def pega_nome_autor(self):
+        nome = input("DIGITE O NOME DO AUTOR: ")
 
-    def pega_dados_autor(self):
-        print("-------- INCLUIR AUTOR ----------")
-        nome = input("Nome: ")
+        return nome
 
-        return {"nome": nome}
+    def mostra_autor(self, nome_autor):
+        print("EXISTE UM AUTOR REGISTRADO DE NOME: ", nome_autor)
 
-    def mostra_autor(self, dados_autor):
-        print("NOME DO AUTOR: ", dados_autor["nome"])
+    def falha_busca(self):
+        print("NAO FORAM ENCONTRADOS REGISTROS!")
+
+    def sucesso_registro(self):
+        print("O AUTOR FOI REGISTRADO COM SUCESSO!")
+
+    def falha_registro(self):
+        print("O AUTOR JA ESTA REGISTRADO!")
+
+    def falha_exclusao(self):
+        print("O AUTOR NAO CONSTA NOS REGISTROS!")
+
+    def aviso_erro(self):
+        print('ERRO!\nDigite um valor válido!')
