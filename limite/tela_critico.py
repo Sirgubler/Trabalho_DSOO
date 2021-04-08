@@ -52,6 +52,24 @@ class TelaCritico:
 
     def erro_cadastra(self):
         print("Erro!\nInfelizmente ja existe outro usuario com o login escolhido!\nTente novamente posteriormente!")
+    
+    def tela_critico(self):
+        print("-------- BEM VINDO AO KOOBS --------")
+        print("Rede social para Criticos e Leitores")
+        print("O que deseja fazer hoje?")
+        print("1 - Pesquisar")
+        print("2 - Visualizar Meu Perfil")
+        print("3 - Alterar Meus Dados")
+        print("4 - Registrar uma Nova Informaçao")
+        print("0 - Desconectar")
+        try:
+            opcao_escolhida = int(input("Seleciona uma das opcoes disponiveis: "))
+            return opcao_escolhida
+        except Exception:
+            print("Opcao invalida!")
+
+    def menu_pesquisa(self):
+        pass
 
     def aviso_erro(self):
         pass

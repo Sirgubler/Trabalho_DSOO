@@ -117,3 +117,27 @@ class ControladorPrincipal:
 
     def encerrar_sistema(self):
         exit(0)
+
+    def perfil_analises(self, usuario: Critico or Leitor):
+        analises = []
+        livros = []
+        lista_opcoes = {0: self.__controlador_critico.menu_perfil(usuario)}
+        n = 1
+        for analise in self.__analises:
+            if analise.usuario == usuario:
+                analises.append(analise)
+        for analise in analises:
+            livro = analise.livro.titulo
+            livros.append(livro)
+            opcoes[n] = livro
+            n = n + 1
+        while self.__manter_tela_aberta:
+            opcao_escolhida = self.__tela_principal.selecao_livro(livros)
+            if opcao_escolhida == 0:
+                funcao_escolhida = lista_opcoes[opcao_escolhida]
+                funcao_escolhida(usuario)
+            elif opcao_escolhida != None:
+                try:
+                    
+            opcao_escolhida = lista_opcoes[opcao_escolhida]
+
