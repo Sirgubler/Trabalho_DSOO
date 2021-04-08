@@ -1,52 +1,57 @@
-class TelaCritico():
+class TelaCritico:
 
     def __init__(self):
         pass
 
-    #Opções gerais da classe Critico. É chamada pela função abrir_tela_critico()
-    def menu_principal(self):
-        print("----------Menu Principal----------")
-        print("1 - Selecionar Critico")
-        print("0 - Sair")
-        return int(input("Selecione a opção desejada: "))
+    def cadastra_nome(self):
+        erroPrimeiroNome = True
+        erroSegundoNome = True
+        primeiro_nome_efetivado = None
+        segundo_nome_efetivado = None
+        while erroPrimeiroNome:
+            primeiro_nome = input("Digite apenas o seu primeiro nome: ")
+            if primeiro_nome.isalpha():
+                primeiro_nome_efetivado = primeiro_nome
+                erroPrimeiroNome = False
+            else:
+                print("Erro!\nDigite apenas letras!\nTente novamnete!")
+        while erroSegundoNome:
+            segundo_nome = input("Digite apenas o seu segundo nome: ")
+            if segundo_nome.isalpha():
+                segundo_nome_efetivado = segundo_nome
+                erroSegundoNome = False
+            else:
+                print("Erro!\nDigite apenas letras!\nTente novamnete!")
+        
+        nome = "{} {}".format(primeiro_nome_efetivado, segundo_nome_efetivado)
+        return nome
 
-    def selecao_de_critico(self, criticos):
-        if criticos != []:
-            n = 1
-            print("\n----------criticos----------")
-            for critico in criticos:
-                print('{} - {}'.format(n, critico))
-                n += 1
-            print('0 - Voltar')
-            return int(input("Selecione o critico desejado: "))
-        else:
-            print('NENHUM critico CADASTRADO!')
+    def cadastra_registro_profissional(self):
+        try:
+            registro_profissional = int(input("Digite o seu registro profissional: "))
+            return registro_profissional
+        except Exception:
+            print("Erro!\nO registro profissional deve conter apenas numeros!")
 
-    def cadastro_de_critico(self):
-        print('\n----------Cadastro de critico----------')
-        return input('Digite o nome do critico: ')
+    def cadastra_login(self):
+        try:
+            login = str(input("Digite seu login de usuario: "))
+            return login
+        except Exception:
+            print("Erro!\nA forma como digitou é inviável!\nTente novamente!")
 
-    def inclusao_de_livro_analisado(self):
-        livro = input('Selecione Livro: ')
-        analise = str(input('Analise: '))
-        return [livro, analise]
+    def cadastra_senha(self):
+        try:
+            senha = str(input("Digite sua senha: "))
+            return senha
+        except Exception:
+            print("Erro!\nA forma como digitou é inviável!\nTente novamente!")
+    
+    def sucesso_cadastra(self):
+        print("Parabens!\nO cadastro foi um sucesso!")
 
-    #Opções específicas do critico. É chamada pela função abrir_menu_critico()
-    def menu_critico(self, nome):
-        print('\n----------Menu critico----------')
-        print('critico: {}'.format(nome))
-        print('1 - Ver livros analisados')
-        print('2 - Incluir um livro analisado')
-        print('0 - Voltar')
-        return int(input('Selecione a opção desejada: '))
+    def erro_cadastra(self):
+        print("Erro!\nInfelizmente ja existe outro usuario com o login escolhido!\nTente novamente posteriormente!")
 
-    def livros_analisados(self, livros_analisados):
-        print('\n----------Livros analisados----------')
-        for livro in livros_analisados:
-            print('{}: {}'.format(livro, livros_analisados[livro]))
-
-    def aviso_erro(self, tipo):
-        if type(tipo) == int:
-            print('ERRO!\nDigite um valor válido!')
-        elif type(tipo) == str:
-            print('ERRO!\nCrítico já cadastrado!')
+    def aviso_erro(self):
+        pass

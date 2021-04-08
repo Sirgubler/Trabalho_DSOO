@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Usuario(ABC):
+class Pessoa(ABC):
 
     @abstractmethod
     def __init__(self, nome: str):
@@ -11,6 +11,5 @@ class Usuario(ABC):
         return self.__nome
 
     @nome.setter
-    def nome(self, nome):
+    def nome(self, nome: str):
         self.__nome = nome
-        
