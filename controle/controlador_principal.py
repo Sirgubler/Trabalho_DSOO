@@ -1,3 +1,4 @@
+from entidade.analise import Analise
 from controle.controlador_livro import ControladorLivro
 from controle.controlador_leitor import ControladorLeitor
 from controle.controlador_critico import ControladorCritico

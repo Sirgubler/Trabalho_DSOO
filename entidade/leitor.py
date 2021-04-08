@@ -1,20 +1,18 @@
 from entidade.pessoa import Pessoa
-from entidade.analise import Analise
-
 
 class Leitor(Pessoa):
 
     def __init__(self, nome: str):
         super().__init__(nome)
-        self.__analises = []
+#        self.__analises = []
 
-    @property
-    def analises(self):
-        return self.__analises
+#    @property
+#    def analises(self):
+#        return self.__analises
 
-    @analises.setter
-    def analises(self, analises: list):
-        self.__analises = analises
+#    @analises.setter
+#    def analises(self, analises: list):
+#        self.__analises = analises
 
     @property
     def login(self):
@@ -32,5 +30,5 @@ class Leitor(Pessoa):
     def senha(self, senha: str):
         self.__senha = senha
 
-    def adicionar_analise(self, analise: Analise):
-        self.__analises.append(analise)
+#    def adicionar_analise(self, analise: Analise):
+#        self.__analises.append(analise)

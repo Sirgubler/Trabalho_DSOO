@@ -1,13 +1,11 @@
 from entidade.pessoa import Pessoa
-from entidade.analise import Analise
-
 
 class Critico(Pessoa):
 
     def __init__(self, nome: str, registro_profissional: int):
         super().__init__(nome)
         self.__registro_profissional = registro_profissional
-        self.__analises = []
+#        self.__analises = []
         self.__login = None
         self.__senha = None
 
@@ -19,13 +17,13 @@ class Critico(Pessoa):
     def registro_profissional(self, registro_profissional: int):
         self.__registro_profissional = registro_profissional
 
-    @property
-    def analises(self):
-        return self.__analises
+#    @property
+#    def analises(self):
+#        return self.__analises
 
-    @analises.setter
-    def analises(self, analises: list):
-        self.__analises = analises
+#    @analises.setter
+#    def analises(self, analises: list):
+#        self.__analises = analises
     
     @property
     def login(self):
@@ -43,5 +41,5 @@ class Critico(Pessoa):
     def senha(self, senha: str):
         self.__senha = senha
 
-    def adicionar_analise(self, analise: Analise):
-        self.__analises.append(analise)
+#    def adicionar_analise(self, analise: Analise):
+#        self.__analises.append(analise)
