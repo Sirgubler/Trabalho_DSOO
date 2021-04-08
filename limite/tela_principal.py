@@ -29,7 +29,7 @@ class TelaPrincipal:
     
     def signupa(self):
         print("-------- BEM VINDO AO KOOBS --------")
-        print("Caso deseje fazer um novo cadastro seleciona uma das opcoes\nCaso contrario selecione retornar")
+        print("Caso deseje fazer um novo cadastro seleciona uma das opcoes abaixo\nDo contrario, selecione retornar")
         print("Voce é um Critico ou Leitor?")
         print("1 - Critico")
         print("2 - Leitor")
@@ -41,8 +41,10 @@ class TelaPrincipal:
             print("Opcao invalida!\nTente novamente!")
 
     def entra(self):
+        print("-------- BEM VINDO AO KOOBS --------")
+        print("Caso deseje logar em sua conta seleciona uma das opcoes abaixo\nDo contrario, selecione retornar")
         print("1 - Login")
-        print("0 - Voltar")
+        print("0 - Retornar ao  Menu Principal")
         try:
             opcao_escolhida = int(input("Seleciona uma das opcoes disponiveis: "))
             return opcao_escolhida

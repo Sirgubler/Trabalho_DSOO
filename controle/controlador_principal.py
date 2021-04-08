@@ -95,6 +95,7 @@ class ControladorPrincipal:
             self.__controlador_critico.abrir_tela_critico(critico_encontrado)
         else:
             self.__tela_principal.erro_logar()
+            self.entrar()
     
     def visitar(self):
         pass
