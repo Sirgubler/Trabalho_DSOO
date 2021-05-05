@@ -1,18 +1,11 @@
-from entidade.pessoa import Pessoa
-
-class Autor(Pessoa):
-
+class Autor:
     def __init__(self, nome: str):
-        super().__init__(nome)
-        self.__livros = []
+        self.__nome = nome
 
     @property
-    def livros(self):
-        return self.__livros
+    def nome(self):
+        return self.__nome
 
-    @livros.setter
-    def livros(self, livros: list):
-        self.__livros = livros
-
-    def adicionar_livro(self, livro):
-        self.__livros.append(livro)
+    @nome.setter
+    def nome(self, nome: str):
+        self.__nome = nome

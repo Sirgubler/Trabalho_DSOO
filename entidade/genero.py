@@ -1,12 +1,11 @@
 class Genero:
-
-    def __init__(self, estilo: str):
-        self.__estilo = estilo
-
+    def __init__(self, nome: str):
+        self.__nome = nome
+    
     @property
-    def estilo(self):
-        return self.__estilo
+    def nome(self):
+        return self.__nome
 
-    @estilo.setter
-    def estilo(self, estilo: str):
-        self.__estilo = estilo
+    @nome.setter
+    def nome(self, nome: str):
+        self.__nome = nome

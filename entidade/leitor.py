@@ -1,22 +1,9 @@
-from entidade.pessoa import Pessoa
+from entidade.usuario import Usuario
 
-class Leitor(Pessoa):
+class Leitor(Usuario):
+    def __init__(self, nome: str, senha: str):
+        super().__init__(nome, senha)
+        self.livros_lidos = {}
 
-    def __init__(self, nome: str):
-        super().__init__(nome)
-
-    @property
-    def login(self):
-        return self.__login
-
-    @login.setter
-    def login(self, login: str):
-        self.__login = login
-    
-    @property
-    def senha(self):
-        return self.__senha
-
-    @senha.setter
-    def senha(self, senha: str):
-        self.__senha = senha
+    def adicionar_livro(self, livro: str, nota: int):
+        self.livros_lidos[livro] = nota

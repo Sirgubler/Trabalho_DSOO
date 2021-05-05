@@ -1,33 +1,13 @@
-from entidade.pessoa import Pessoa
+from entidade.usuario import Usuario
+from entidade.analise import Analise
 
-class Critico(Pessoa):
+class Critico(Usuario):
+    def __init__(self, nome: str, senha: str):
+        super().__init__(nome, senha)
+        self.livros_analisados = {}
+        self.analises = []
 
-    def __init__(self, nome: str, registro_profissional: int):
-        super().__init__(nome)
-        self.__registro_profissional = registro_profissional
-        self.__login = None
-        self.__senha = None
-
-    @property
-    def registro_profissional(self):
-        return self.__registro_profissional
-
-    @registro_profissional.setter
-    def registro_profissional(self, registro_profissional: int):
-        self.__registro_profissional = registro_profissional
-
-    @property
-    def login(self):
-        return self.__login
-
-    @login.setter
-    def login(self, login: str):
-        self.__login = login
-    
-    @property
-    def senha(self):
-        return self.__senha
-
-    @senha.setter
-    def senha(self, senha: str):
-        self.__senha = senha
+    def analisar_livro(self, livro: str, texto: str):
+        analise = Analise(livro, texto)
+        self.analises.append(analise)
+        self.livros_analisados[analise.livro] = analise.texto

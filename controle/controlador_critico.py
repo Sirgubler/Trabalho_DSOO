@@ -1,119 +1,84 @@
-from entidade.critico import Critico
 from limite.tela_critico import TelaCritico
+from entidade.critico import Critico
 
-class ControladorCritico:
+class ControladorCritico():
 
     def __init__(self, controlador_principal):
         self.__criticos = []
+        self.analises = {}
         self.__tela_critico = TelaCritico()
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
-    
-    def abrir_tela_critico(self, critico: Critico):
-        self.__manter_tela_aberta = True
-        lista_opcoes = {1: self.menu_pesquisar, 2: self.menu_perfil, 3: self.menu_alteracao, 4: self.menu_registrar, 0: self.fechar_tela}
+
+    #Espécie de Login
+    def selecionar_critico(self):
+        criticos = self.__criticos
         while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_critico.tela_critico()
-            try:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_critico.aviso_erro()
+            critico_escolhido = self.__tela_critico.selecao_de_critico()
+            if critico_escolhido != None:
+                for critico in criticos:
+                    if critico.nome == critico_escolhido[0]:
+                        if critico.senha == critico_escolhido[1]:
+                            self.abrir_menu_critico(critico)
+                            return
+                self.__tela_critico.aviso(2)
             else:
-                funcao_escolhida(critico)
-        
-        self.__controlador_principal.entrar()
+                return
 
-    def menu_pesquisar(self, critico: Critico):
-        self.__manter_tela_aberta = True
-        lista_opcoes = {1: self.pesquisa_livros, 2: self.pesquisa_autores, 3: self.pesquisa_generos, 4: self.pesquisa_analises, 5: self.pesquisa_usuarios, 0: self.fechar_tela}
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_critico.menu_pesquisa()
-            try:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_critico.aviso_erro()
-            else:
-                funcao_escolhida(critico)
-        
-        self.abrir_tela_critico(critico)
-
-    def menu_perfil(self, critico: Critico):
-        self__manter_tela_aberta = True
-        lista_opcoes = {1: self.perfil_critico, 2: self.perfil_analises, 0: self.fechar_tela}
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_critico.menu_perfil()
-            try:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_critico.aviso_erro
-            else:
-                funcao_escolhida(critico)
-        
-        self.abrir_tela_critico(critico)
-
-    def perfil_critico(self, critico: Critico):
-        self.__tela_critico.perfil_critico()
-        self.menu_perfil(critico)
-
-    def perfil_analises(self, critico: Critico):
-        pass
-
-    def menu_alteracao(self, critico: Critico):
-        pass
-
-    def menu_registrar(self, critico: Critico):
-        pass
-
-    def pesquisa_livros(self, critico: Critico):
-        pass
-
-    def pesquisa_autores(self, critico: Critico):
-        pass
-
-    def pesquisa_generos(self, critico: Critico):
-        pass
-
-    def pesquisa_analises(self, critico: Critico):
-        pass
-
-    def pesquisa_usuarios(self, critico: Critico):
-        pass
-
-    def cadastrar(self):
-        naoexisteUsuario = True
-        nome = self.__tela_critico.cadastra_nome()
-        registro_profissional = self.__tela_critico.cadastra_registro_profissional()
-        login = self.__tela_critico.cadastra_login()
-        senha = self.__tela_critico.cadastra_senha()
-        novo_critico = Critico(nome, registro_profissional)
-        usuarios = self.__controlador_principal.logins()
-        
-        for usuario in usuarios:
-            if usuario == login:
-                naoexisteUsuario = False
-                break
-        if naoexisteUsuario:
-            novo_critico.login = login
-            novo_critico.senha = senha
-            self.__criticos.append(novo_critico)
-            self.__tela_critico.sucesso_cadastra()
+    def cadastrar_critico(self):
+        info = self.__tela_critico.cadastro_de_critico()
+        if info != None:
+            for critico in self.__criticos:
+                if info[0] == critico.nome:
+                    self.__tela_critico.aviso(3)
+                    return
+            self.__criticos.append(Critico(info[0],info[1]))
+            self.__tela_critico.aviso(1)
         else:
-            self.__tela_critico.erro_cadastra()
+            return
 
-    def logins_criticos(self):
-        logins_criticos = []
-        for critico in self.__criticos:
-            logins_criticos.append(critico.login)
+    #Vê os livros analisados pelo critico
+    def retornar_livros(self, critico: Critico):
+        livros = critico.livros_analisados
+        self.__tela_critico.livros_analisados(livros)
 
-        return logins_criticos
+    #Inclui um novo livro que o critico analisou
+    #Não confundir com o cadastro de livros da classe Livro
+    def incluir_livro_analisado(self, critico: Critico):
+        livro = self.__controlador_principal.ver_livros()
+        if livro == 0:
+            pass
+        else:
+            livro_analise = self.__tela_critico.inclusao_de_livro_analisado()
+            critico.analisar_livro(livro, livro_analise)
+            if livro in self.analises.keys():
+                self.analises[livro].append(livro_analise + '\nAnálise por ' + critico.nome + '\n')
+            else:
+                self.analises[livro] = [livro_analise + '\nAnálise por ' + critico.nome + '\n']
 
-    @property
-    def criticos(self):
-        return self.__criticos
-
-    @criticos.setter
-    def criticos(self, criticos: list):
-        self.__criticos = criticos
-
-    def fechar_tela(self):
+    def voltar_tela_principal(self):
         self.__manter_tela_aberta = False
+
+    #Menu principal do controlador_critico
+    #Não confundir com o abrir_menu_critico onde estão as opções do critico após o 'login'
+    def abrir_tela_critico(self):
+        self.__manter_tela_aberta = True
+        opcoes = {'Login': self.selecionar_critico, 'Voltar': self.voltar_tela_principal}   
+        while self.__manter_tela_aberta:
+            opcao_escolhida = self.__tela_critico.menu_principal()
+            funcao_escolhida = opcoes[opcao_escolhida]
+            funcao_escolhida()
+
+    #Menu específico do critico
+    #Não confundir com o abrir_tela_critico onde estão as opções de 'login' ou cadastro
+    def abrir_menu_critico(self, critico: Critico):
+        nome = critico.nome
+        opcoes = {'Ver livros analisados': self.retornar_livros, 'Incluir um livro analisado': self.incluir_livro_analisado, 'Voltar': self.abrir_tela_critico}
+        while self.__manter_tela_aberta:
+            opcao_escolhida = self.__tela_critico.menu_critico(nome)
+            if opcao_escolhida == 'Voltar':
+                funcao_escolhida = opcoes[opcao_escolhida]
+                funcao_escolhida()
+            else:
+                funcao_escolhida = opcoes[opcao_escolhida]
+                funcao_escolhida(critico)

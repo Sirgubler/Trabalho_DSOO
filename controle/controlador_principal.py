@@ -1,143 +1,65 @@
-from entidade.analise import Analise
-from controle.controlador_livro import ControladorLivro
-from controle.controlador_leitor import ControladorLeitor
-from controle.controlador_critico import ControladorCritico
-from controle.controlador_sistema import ControladorSistema
 from limite.tela_principal import TelaPrincipal
+from controle.controlador_leitor import ControladorLeitor
+from controle.controlador_livro import ControladorLivro
+from controle.controlador_critico import ControladorCritico
+from controle.controlador_admin import ControladorAdmin
 
 class ControladorPrincipal:
 
     def __init__(self):
-        self.__analises = []
         self.__tela_principal = TelaPrincipal()
-        self.__controlador_livro = ControladorLivro(self)
         self.__controlador_leitor = ControladorLeitor(self)
+        self.__controlador_livro = ControladorLivro(self)
         self.__controlador_critico = ControladorCritico(self)
-        self.__controlador_sistema = ControladorSistema(self)
+        self.__controlador_admin = ControladorAdmin(self)
         self.__manter_tela_aberta = True
 
     def iniciar_sistema(self):
-        self.abrir_tela_principal()
+        self.abrir_tela()
 
-    def abrir_tela_principal(self):
-        self.__manter_tela_aberta = True
-        lista_opcoes = {1: self.cadastrar, 2:self.entrar, 3: self.visitar, 0: self.encerrar_sistema}
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_principal.tela_principal()
-            try:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_principal.aviso_erro()
-            else:
-                funcao_escolhida()
+    def controlador_livro(self):
+        self.__controlador_livro.abrir_tela_livro()
 
-    def cadastrar(self):
-        self.__manter_tela_aberta = True
-        lista_opcoes = {1: self.signupar, 0: self.fechar_tela}
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_principal.cadastra()
-            try:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_principal.aviso_erro()
-            else:
-                funcao_escolhida()
+    def controlador_usuario(self):
+        self.abrir_tela_usuario()
 
-        self.abrir_tela_principal()
+    def controlador_leitor(self):
+        self.__controlador_leitor.abrir_tela_leitor()
 
-    def signupar(self):
-        self.__manter_tela_aberta
-        lista_opcoes = {1: self.__controlador_critico.cadastrar, 2: self.__controlador_leitor.cadastrar, 0: self.fechar_tela}
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_principal.signupa()
-            try:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_principal.aviso_erro()
-            else:
-                funcao_escolhida()
+    def controlador_critico(self):
+        self.__controlador_critico.abrir_tela_critico()
 
-        self.abrir_tela_principal()
-    
-    def entrar(self):
-        self.__manter_tela_aberta = True
-        lista_opcoes =  {1: self.logar, 0: self.fechar_tela}
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_principal.entra()
-            try:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_principal.aviso_erro()
-            else:
-                funcao_escolhida()
+    def controlador_admin(self):
+        self.__controlador_admin.abrir_tela_admin()
 
-        self.abrir_tela_principal()
-
-    def logar(self):
-        existeLeitor = False
-        existeCritico = False
-        login = self.__tela_principal.loga_nome()
-        senha = self.__tela_principal.loga_senha()
-        leitor_encontrado = None
-        critico_encontrado = None
-        for leitor in self.__controlador_leitor.leitores:
-            if leitor.login == login and leitor.senha == senha:
-                leitor_encontrado = leitor
-                existeLeitor = True
-                break
-        for critico in self.__controlador_critico.criticos:
-            if critico.login == login and critico.senha == senha:
-                critico_encontrado = critico
-                existeCritico = True
-                break
-        if existeLeitor:
-            self.__controlador_leitor.abrir_tela_leitor(leitor_encontrado)
-        if existeCritico:
-            self.__controlador_critico.abrir_tela_critico(critico_encontrado)
-        else:
-            self.__tela_principal.erro_logar()
-            self.entrar()
-    
-    def visitar(self):
-        pass
-
-    def logins(self):
-        usuarios = []
-        logins_criticos = self.__controlador_critico.logins_criticos()
-        logins_leitores = self.__controlador_leitor.logins_leitores()
-        for login_critico in logins_criticos:
-            usuarios.append(login_critico)
-        for login_leitor in logins_leitores:
-            usuarios.append(login_leitor)
-
-        return usuarios
-
-    def fechar_tela(self):
-        self.__manter_tela_aberta = False
-
-    def encerrar_sistema(self):
+    def encerra_sistema(self):
         exit(0)
 
-    def perfil_analises(self, usuario: Critico or Leitor):
-        analises = []
-        livros = []
-        lista_opcoes = {0: self.__controlador_critico.menu_perfil(usuario)}
-        n = 1
-        for analise in self.__analises:
-            if analise.usuario == usuario:
-                analises.append(analise)
-        for analise in analises:
-            livro = analise.livro.titulo
-            livros.append(livro)
-            opcoes[n] = livro
-            n = n + 1
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_principal.selecao_livro(livros)
-            if opcao_escolhida == 0:
-                funcao_escolhida = lista_opcoes[opcao_escolhida]
-                funcao_escolhida(usuario)
-            elif opcao_escolhida != None:
-                try:
-                    
-            opcao_escolhida = lista_opcoes[opcao_escolhida]
+    #Abre a tela inicial do sistema
+    def abrir_tela(self):
+        opcoes = {'Menu Livros': self.controlador_livro, 'Menu Usuários': self.controlador_usuario, 'Sair': self.encerra_sistema}
+        while True:
+            opcao_escolhida = self.__tela_principal.menu_principal()
+            funcao_escolhida = opcoes[opcao_escolhida] 
+            funcao_escolhida()
 
+    #Abre a tela de opções de tipo de usuários (leitor, critico e admin)
+    def abrir_tela_usuario(self):
+        opcoes = {'Menu Leitor': self.controlador_leitor, 'Menu Crítico': self.controlador_critico, 'Menu Admin': self.controlador_admin, 'Voltar': self.iniciar_sistema}
+        while True:
+            opcao_escolhida = self.__tela_principal.menu_usuario()
+            funcao_escolhida = opcoes[opcao_escolhida]
+            funcao_escolhida()
+
+    def cadastrar_critico(self):
+        self.__controlador_critico.cadastrar_critico()
+    
+    def ver_analises_criticos(self):
+        return self.__controlador_critico.analises
+
+    def ver_notas_leitores(self):
+        return self.__controlador_leitor.notas
+    
+    def ver_livros(self):
+        livro = self.__controlador_livro.selecionar_livro()
+        return livro
