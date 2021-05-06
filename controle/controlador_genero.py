@@ -23,6 +23,20 @@ class ControladorGenero:
             novo_genero = Genero(nome)
             self.__generos.append(novo_genero)
 
+    def alterar_genero_livro(self):
+        naoexisteGenero = True
+        nome = self.__tela_genero.altera_genero_livro()
+        novo_genero = Genero(nome)
+
+        for genero in self.__generos:
+            if genero.nome == nome:
+                naoexisteGenero = False
+                break
+        if naoexisteGenero:
+            self.__generos.append(novo_genero)
+
+        return novo_genero
+
     def abrir_tela_genero(self):
         self.__manter_tela_aberta = True
         lista_opcoes = {'Cadastrar Genero': self.cadastrar_genero, 'Alterar Genero': self.alterar_genero, 'Listar Generos': self.listar_generos, 'Remover Genero': self.remover_genero, 'Pesquisar Generos': self.pesquisar_generos, 'Voltar': self.fechar_tela_genero}
