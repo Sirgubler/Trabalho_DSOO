@@ -55,6 +55,7 @@ class ControladorLivro():
         self.abrir_tela_livro()
 
     def alterar_livro(self):
+        self.__manter_tela_aberta = True
         existeLivro = False
         titulo = self.__tela_livro.busca_titulo()
         livro_encontrado = None
@@ -65,22 +66,45 @@ class ControladorLivro():
                 livro_encontrado = livro
                 break
         if existeLivro:
-            alteracao_escolhida = self.__tela_livro.altera_livro()
-            if alteracao_escolhida == 'Alterar Titulo':
-                novo_titulo = self.__tela_livro.altera_titulo()
-                livro_encontrado.titulo = novo_titulo
-            if alteracao_escolhida == 'Alterar Autor':
-                autor = self.__controlador_autor.alterar_autor_livro()
-                livro_encontrado.autor = autor
-            if alteracao_escolhida == 'Alterar Genero':
-                genero = self.__controlador_genero.alterar_genero_livro()
-                livro_encontrado.genero = genero
-            if alteracao_escolhida == 'Voltar':
-                self.alterar_livro()
-        else:
-            self.__tela_livro.aviso_erro()
-        
+            self.__manter_tela_aberta = True
+            lista_opcoes = {'Alterar Titulo': self.altera_livro, 'Alterar Autor': self.altera_autor, 'Alterar Genero': self.altera_genero:}
+            while self.__manter_tela_aberta:
+                opcao_escolhida = self.__tela_livro.altera_livro()
+                if opcao_escolhida == 'Voltar':
+                    funcao_escolhida = lista_opcoes[opcao_escolhida]
+                    funcao_escolhida()
+                elif opcao_escolhida != 'Voltar':
+                    try:
+                        funcao_escolhida = lista_opcoes[opcao_escolhida]
+                    except Exception:
+                        self.__tela_livro.aviso_erro()
+                    else:
+                        funcao_escolhida(livro_encontrado)
+                else:
+                    self.alterar_livro()      
+
         self.abrir_tela_livro()
+    
+    def altera_titulo(self, livro_encontrado: Livro):
+        naoexisteTitulo = True
+        titulo_alterado = self.__tela_livro.altera_titulo()
+
+        for livro in self.__livros:
+            if livro.titulo == titulo_alterado:
+                naoexisteTitulo = False
+                self.__tela_livro.aviso_erro()
+                break
+        if naoexisteTitulo:
+            livro_encontrado.titulo = titulo_alterado
+            self.__tela_livro.aviso_sucesso()
+    
+    def altera_autor(self, livro_encontrado):
+        novo_autor = self.__controlador_autor.alterar_autor_livro()
+        livro_encontrado.autor = novo_autor
+
+    def altera_genero(self, livro_encontrado):
+        novo_genero = self.__controlador_genero.alterar_genero_livro()
+        livro_encontrado.genero = novo_genero
 
     def listar_livros(self):
         livros = []
@@ -114,7 +138,35 @@ class ControladorLivro():
         self.abrir_tela_livro()
         
     def pesquisar_livros(self):
-        pass
+        self.__manter_tela_aberta = True
+        lista_opcoes = {'Pesquisar por Titulo': self.pesquisar_titulo, 'Pesquisar por Autor': self.pesquisar_autor, 'Pesquisar por Genero': self.pesquisar_genero, 'Voltar': self.fechar_tela_livro}
+        while self.__manter_tela_aberta:
+            opcao_escolhida = self.__tela_livro.pesquisa_livros()
+            try:
+                funcao_escolhida = lista_opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_livro.aviso_erro()
+            else:
+                funcao_escolhida()      
+
+        self.__controlador_principal.abrir_tela_livro
+    
+    def pesquisar_titulo(self):
+        existeLivro = False
+        titulo_pesquisado = self.__tela_livro.pesquisa_titulo()
+        encontrado = None
+
+        for livro in self.__livros:
+            if livro.titulo == titulo_pesquisado:
+                existeLivro = True
+                encontrado = livro
+                break
+        if existeLivro:
+            self.__tela_livro.mostra_livro()
+
+
+            
+
 
     def verificar_analises(self):
         pass
