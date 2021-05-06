@@ -100,9 +100,7 @@ class ControladorLivro():
     
     def altera_autor(self, livro_encontrado: Livro):
         novo_autor = self.__controlador_autor.alterar_autor_livro()
-        for livro in self.__livros:
-            if livro.titulo == livro_encontrado.titulo:
-                livro.autor = novo_autor
+        livro_encontrado.autor = novo_autor
 
     def altera_genero(self, livro_encontrado):
         novo_genero = self.__controlador_genero.alterar_genero_livro()

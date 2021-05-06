@@ -32,13 +32,14 @@ class ControladorAutor:
     def alterar_autor_livro(self):
         naoexisteAutor = True
         nome = self.__tela_autor.altera_autor_livro()
-        novo_autor = Autor(nome)
 
         for autor in self.__autores:
             if autor.nome == nome:
+                novo_autor = autor
                 naoexisteAutor = False
                 break
         if naoexisteAutor:
+            novo_autor = Autor(nome)
             self.__autores.append(novo_autor)
 
         return novo_autor

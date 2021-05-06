@@ -21,7 +21,7 @@ class Livro:
 
     @autor.setter
     def autor(self, autor: Autor):
-        return self.__autor
+        self.__autor = autor 
 
     @property
     def genero(self):
@@ -29,4 +29,4 @@ class Livro:
 
     @genero.setter
     def genero(self, genero: Genero):
-        return self.__genero
+        self.__genero = genero
