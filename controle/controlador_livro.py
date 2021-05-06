@@ -41,15 +41,15 @@ class ControladorLivro():
             titulo = dados_livro['titulo']
             autor = dados_livro['autor']
             genero = dados_livro['genero']
-            self.__controlador_autor.naoexisteAutor(autor)
-            self.__controlador_genero.naoexisteGenero(genero)
+            autor_escolhido = self.__controlador_autor.naoexisteAutor(autor)
+            genero_escolhido = self.__controlador_genero.naoexisteGenero(genero)
             
             for livro in self.__livros:
                 if livro.titulo == titulo:
                     naoexisteLivro = False
                     break
             if naoexisteLivro:
-                novo_livro = Livro(titulo, autor, genero)
+                novo_livro = Livro(titulo, autor_escolhido, genero_escolhido)
                 self.__livros.append(novo_livro)
         
         self.abrir_tela_livro()
@@ -98,9 +98,11 @@ class ControladorLivro():
             livro_encontrado.titulo = titulo_alterado
             self.__tela_livro.aviso_sucesso()
     
-    def altera_autor(self, livro_encontrado):
+    def altera_autor(self, livro_encontrado: Livro):
         novo_autor = self.__controlador_autor.alterar_autor_livro()
-        livro_encontrado.autor = novo_autor
+        for livro in self.__livros:
+            if livro.titulo == livro_encontrado.titulo:
+                livro.autor = novo_autor
 
     def altera_genero(self, livro_encontrado):
         novo_genero = self.__controlador_genero.alterar_genero_livro()
@@ -108,27 +110,36 @@ class ControladorLivro():
 
     def listar_livros(self):
         livros = []
-        livro_selecionado = None
 
         for livro in self.__livros:
             livros.append(livro.titulo)
 
         livro_escolhido = self.__tela_livro.lista_livros(livros)
         if livro_escolhido != 'Voltar':
-            for livro in self.__livros:
-                if livro.titulo == livro_escolhido: 
-                    livro_selecionado = livro
-                    break                  
-                if livro_selecionado != None:    
-                    titulo = livro_selecionado.titulo
-                    autor = livro_selecionado.autor.nome
-                    genero = livro_selecionado.genero.nome
-                    dados_livro = {'titulo': titulo, 'autor': autor, 'genero': genero}
-                    mostrar_livro = self.__tela_livro.mostra_livro(dados_livro)
-                    if mostrar_livro == 'Voltar':
-                        self.listar_livros
-            
-        self.abrir_tela_livro()
+            self.mostrar_livro(livro_escolhido)
+        else:
+            self.abrir_tela_livro()
+
+    def mostrar_livro(self, livro_escolhido):
+        existeLivro = False        
+        dados_livro = {}
+        livro_encontrado = None
+
+        for livro in self.__livros:
+            if livro.titulo == livro_escolhido:
+                existeLivro = True
+                livro_encontrado = livro
+                break
+        if existeLivro:
+            titulo = livro_encontrado.titulo
+            autor_objeto = livro_encontrado.autor
+            genero_objeto = livro_encontrado.genero
+            autor = self.__controlador_autor.pega_nome(autor_objeto)
+            genero = self.__controlador_genero.pega_nome(genero_objeto)
+            dados_livro = {'titulo': titulo, 'autor': autor, 'genero': genero}
+            self.__tela_livro.mostra_livro(dados_livro)
+           
+        self.listar_livros()
 
     def remover_livro(self):
         naoexisteLivro = True

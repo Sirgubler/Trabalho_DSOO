@@ -22,6 +22,12 @@ class ControladorAutor:
         if naoexisteAutor:
             novo_autor = Autor(nome)
             self.__autores.append(novo_autor)
+        
+        return novo_autor
+    
+    def pega_nome(self, autor: Autor):
+        nome = autor.nome
+        return nome
 
     def alterar_autor_livro(self):
         naoexisteAutor = True
@@ -58,7 +64,34 @@ class ControladorAutor:
         pass
 
     def listar_autores(self):
-        pass
+        autores = []
+
+        for autor in self.__autores:
+            autores.append(autor.nome)
+
+        autor_escolhido = self.__tela_autor.lista_autores(autores)
+        if autor_escolhido != 'Voltar':
+            self.mostrar_autor(autor_escolhido)
+        else:
+            self.abrir_tela_autor()
+
+    def mostrar_autor(self, autor_escolhido):
+        existeAutor = False        
+        dados_autor = {}
+        autor_encontrado = None
+
+        for autor in self.__autores:
+            if autor.nome == autor_escolhido:
+                existeAutor = True
+                autor_encontrado = autor
+                break
+        if existeAutor:
+            nome = autor_encontrado.nome
+            dados_autor = {'nome': nome}
+            self.__tela_autor.mostra_autor(dados_autor)
+           
+        self.abrir_tela_autor()
+
     
     def remover_autor(self):
         pass

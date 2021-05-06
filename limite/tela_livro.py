@@ -68,7 +68,7 @@ class TelaLivro():
             return None
     
     def lista_livros(self, livros):
-        if livros != {}:
+        if livros != []:
             layout = [
                 ]
             for livro in livros:

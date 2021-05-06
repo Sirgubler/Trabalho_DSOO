@@ -23,6 +23,12 @@ class ControladorGenero:
             novo_genero = Genero(nome)
             self.__generos.append(novo_genero)
 
+        return novo_genero
+    
+    def pega_nome(self, genero: Genero):
+        nome = genero.nome
+        return nome
+
     def alterar_genero_livro(self):
         naoexisteGenero = True
         nome = self.__tela_genero.altera_genero_livro()
