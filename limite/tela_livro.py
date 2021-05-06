@@ -106,6 +106,16 @@ class TelaLivro():
         else:
             return None  
 
+    def pesquisa_livros(self):
+        layout = [
+        [sg.Button('Pesquisar por Titulo'), sg.ReadButton('Pesquisar por Autor'), sg.ReadButton('Pesquisar por Genero')],
+        [sg.Button('Voltar')],
+        ]
+        window = sg.Window('Pesquisando por Livros').Layout(layout)
+        button = window.Read()
+        window.Close()
+        return button[0]
+
     def aviso_sucesso(self):
         pass
 

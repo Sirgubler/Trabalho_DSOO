@@ -113,11 +113,14 @@ class ControladorLivro():
 
         for livro in self.__livros:
             livros.append(livro.titulo)
-
-        livro_escolhido = self.__tela_livro.lista_livros(livros)
-        if livro_escolhido != 'Voltar':
-            self.mostrar_livro(livro_escolhido)
+        if livros != []:
+            livro_escolhido = self.__tela_livro.lista_livros(livros)
+            if livro_escolhido != 'Voltar':
+                self.mostrar_livro(livro_escolhido)
+            else:
+                self.abrir_tela_livro()
         else:
+            self.__tela_livro.aviso_erro()
             self.abrir_tela_livro()
 
     def mostrar_livro(self, livro_escolhido):
@@ -167,7 +170,7 @@ class ControladorLivro():
             else:
                 funcao_escolhida()      
 
-        self.__controlador_principal.abrir_tela_livro
+        self.abrir_tela_livro()
     
     def pesquisar_titulo(self):
         existeLivro = False
