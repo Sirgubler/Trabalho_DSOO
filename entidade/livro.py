@@ -2,7 +2,7 @@ from entidade.autor import Autor
 from entidade.genero import Genero
 
 class Livro:
-    def __init__(self, titulo: str, autor: str, genero: str):
+    def __init__(self, titulo: str, autor: Autor, genero: Genero):
         self.__titulo = titulo
         self.__autor = autor
         self.__genero = genero
@@ -20,7 +20,7 @@ class Livro:
         return self.__autor
 
     @autor.setter
-    def autor(self, autor: str):
+    def autor(self, autor: Autor):
         return self.__autor
 
     @property
@@ -28,5 +28,5 @@ class Livro:
         return self.__genero
 
     @genero.setter
-    def genero(self, genero: str):
+    def genero(self, genero: Genero):
         return self.__genero
