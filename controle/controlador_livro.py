@@ -51,6 +51,8 @@ class ControladorLivro():
             if naoexisteLivro:
                 novo_livro = Livro(titulo, autor, genero)
                 self.__livros.append(novo_livro)
+        
+        self.abrir_tela_livro()
 
     def alterar_livro(self):
         existeLivro = False
@@ -81,11 +83,36 @@ class ControladorLivro():
         self.abrir_tela_livro()
 
     def listar_livros(self):
-        pass
+        livros = []
+        for livro in self.__livros:
+            livros.append(livro.titulo)
+
+        livro_escolhido = self.__tela_livro.lista_livros(livros)
+        if livro_escolhido != None:
+            titulo = livro.titulo
+            autor = livro.autor.nome
+            genero = livro.genero.nome
+            dados_livro = [titulo, autor, genero]
+            mostrar_livro = self.__tela_livro.mostra_livro(dados_livro)
+            if mostrar_livro == None:
+                self.listar_livros
+        
+        self.abrir_tela_livro()
 
     def remover_livro(self):
-        pass
+        naoexisteLivro = True
+        titulo = self.__tela_livro.remove_livro()
 
+        for livro in self.__livros:
+            if livro.titulo == titulo:
+                naoexisteLivro = False
+                self.__livros.remove(livro)
+                break
+        if naoexisteLivro:
+            self.__tela_livro.aviso_erro()
+        
+        self.abrir_tela_livro()
+        
     def pesquisar_livros(self):
         pass
 
