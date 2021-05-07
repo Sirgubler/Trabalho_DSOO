@@ -247,5 +247,57 @@ class ControladorLivro():
     def verificar_notas(self):
         pass
 
+    def pesquisar_autor_livros(self):
+        autor_pesquisado = self.__tela_livro.pesquisa_autor()
+        livros_encontrado = []
+        livros = []
+
+        for livro in self.__livros:
+            autor = livro.autor
+            if autor.nome == autor_pesquisado:
+                livros_encontrado.append(livro)
+        if livros_encontrado != []:
+            for livro in livros_encontrado:
+                livros.append(livro.titulo)
+            if livros != []:
+                livro_escolhido = self.__tela_livro.lista_livros(livros)
+                if livro_escolhido != None:
+                    self.mostrar_livro(livro_escolhido)
+                else:
+                    self.__controlador_autor.pesquisar_autores()
+            else:
+                self.__controlador_autor.pesquisar_autores()
+        
+        self.__controlador_autor.pesquisar_autores()
+
+    def pesquisar_autor_generos(self):
+        autor_pesquisado = self.__tela_livro.pesquisa_autor()
+        livros_encontrado = []
+        generos = []
+        titulos = []
+
+        for livro in self.__livros:
+            autor = livro.autor
+            if autor.nome == autor_pesquisado:
+                livros_encontrado.append(livro)
+        if livros_encontrado != []:
+            for livro in livros_encontrado:
+                genero = livro.genero
+                nome_genero = genero.nome
+                generos.append(nome_genero)
+            if generos != []:
+                genero_escolhido = self.__tela_livro.lista_generos(generos)
+                if genero_escolhido != None:
+                    for livro in livros_encontrado:
+                        genero_objeto = livro.genero
+                        if genero_objeto.nome == genero_escolhido:
+                            titulos.append(livro.titulo)
+                    mostrando = self.__tela_livro.mostra_genero(titulos)
+                    if mostrando == 'Voltar':
+                        titulos = []
+                        self.pesquisar_autor_generos
+
+        self.__controlador_autor.pesquisar_autores()
+
     def fechar_tela_livro(self):
         self.__manter_tela_aberta = False

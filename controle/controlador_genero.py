@@ -35,13 +35,14 @@ class ControladorGenero:
     def alterar_genero_livro(self):
         naoexisteGenero = True
         nome = self.__tela_genero.altera_genero_livro()
-        novo_genero = Genero(nome)
 
         for genero in self.__generos:
             if genero.nome == nome:
                 naoexisteGenero = False
+                novo_genero = genero
                 break
         if naoexisteGenero:
+            novo_genero = Genero(nome)
             self.__generos.append(novo_genero)
 
         return novo_genero

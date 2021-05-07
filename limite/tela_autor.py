@@ -40,9 +40,58 @@ class TelaAutor:
             return dados_tela['autor']
         else:
             return None
+    
+    def cadastra_autor(self):
+        layout = [
+        [sg.Text('Digite o nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Button('Cadastrar'), sg.Button('Cancelar')],
+        ]
+        window = sg.Window('Cadastrando um novo Autor').Layout(layout)
+        botao, dados_tela = window.Read()
+        window.Close()
+        if botao == 'Cadastrar':
+            return dados_tela['autor']
+        else:
+            return None
+    
+    def altera_autor(self):
+        layout = [
+        [sg.Text('Digite o nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Button('Pesquisar'), sg.Button('Cancelar')],
+        ]
+        window = sg.Window('Buscar Autor para Alteracao').Layout(layout)
+        botao, dados_tela = window.Read()
+        window.Close()
+        if botao == 'Pesquisar':
+            return dados_tela['autor']
+        else:
+            return None
+
+    def alteracao(self):
+        layout = [
+        [sg.Text('Digite o novo nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Button('Pesquisar'), sg.Button('Cancelar')],
+        ]
+        window = sg.Window('Alteracao de Autor').Layout(layout)
+        botao, dados_tela = window.Read()
+        window.Close()
+        if botao == 'Pesquisar':
+            return dados_tela['autor']
+        else:
+            return None
 
     def mostra_autor(self, dados_autor):
         print(dados_autor['nome'])
 
+    def pesquisa_autores(self):
+        layout = [
+        [sg.Button('Pesquisar Livros do Autor'), sg.ReadButton('Pesquisar Generos do Autor')],
+        [sg.Button('Voltar')],
+        ]
+        window = sg.Window('Menu de Pesquisar Autor').Layout(layout)
+        button = window.Read()
+        window.Close()
+        return button[0]
+        
     def aviso_erro(self):
         print('ERRO!\nDigite um valor válido!')

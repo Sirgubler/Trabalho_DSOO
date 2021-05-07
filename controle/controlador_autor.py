@@ -62,10 +62,38 @@ class ControladorAutor:
         self.__controlador_livro.abrir_tela_livro()
 
     def cadastrar_autor(self):
-        pass
+        naoexisteAutor = True
+        nome = self.__tela_autor.cadastra_autor()
+        
+        if nome != None:
+            for autor in self.__autores:
+                if autor.nome == nome:
+                    naoexisteAutor = False
+                    break
+            if naoexisteAutor:
+                novo_autor = Autor(nome)
+                self.__autores.append(novo_autor)
+        
+        self.abrir_tela_autor()
 
     def alterar_autor(self):
-        pass
+        existeAutor = False
+        autor_alterado = self.__tela_autor.altera_autor()
+        autor_encontrado = None
+
+        for autor in self.__autores:
+            if autor.nome == autor_alterado:
+                existeAutor = True
+                autor_encontrado = autor
+                break
+        if existeAutor:
+            novo_nome = self.__tela_autor.alteracao()
+            if novo_nome != None:
+                autor_encontrado.nome = novo_nome
+            else:
+                self.abrir_tela_autor()
+        
+        self.abrir_tela_autor()
 
     def listar_autores(self):
         autores = []
@@ -101,7 +129,24 @@ class ControladorAutor:
         pass
 
     def pesquisar_autores(self):
-        pass
+        self.__manter_tela_aberta = True
+        lista_opcoes = {'Pesquisar Livros do Autor': self.pesquisar_titulo, 'Pesquisar Generos do Autor': self.pesquisar_generos, 'Voltar': self.fechar_tela_autor}
+        while self.__manter_tela_aberta:
+            opcao_escolhida = self.__tela_autor.pesquisa_autores()
+            try:
+                funcao_escolhida = lista_opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_autor.aviso_erro()
+            else:
+                funcao_escolhida()      
+
+        self.abrir_tela_autor()
+    
+    def pesquisar_titulo(self):
+        self.__controlador_livro.pesquisar_autor_livros()
+
+    def pesquisar_generos(self):
+        self.__controlador_livro.pesquisar_autor_generos()
 
     def fechar_tela_autor(self):
         self.__manter_tela_aberta = False

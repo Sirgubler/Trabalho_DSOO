@@ -154,6 +154,30 @@ class TelaLivro():
             return dados_tela['genero']
         else:
             return None  
+    
+    def lista_generos(self, generos):
+        if generos != []:
+            layout = [
+                ]
+            for genero in generos:
+                layout.append([sg.Button(genero, size=(15, 1))])
+            layout.append([sg.Button('Voltar', size=(6,1))])
+            window = sg.Window('Lista de Generos do Autor').Layout(layout)
+            button = window.Read()
+            window.Close()
+            return button[0]   
+
+    def mostra_genero(self, titulos):
+        if titulos != []:
+            layout = [
+                ]
+            for titulo in titulos:
+                layout.append([sg.Text(titulo, size=(15, 1))])
+            layout.append([sg.Button('Voltar', size=(6,1))])
+            window = sg.Window('Livros Escritos pelo Autor do Genero Escolhido').Layout(layout)
+            button = window.Read()
+            window.Close()
+            return button[0]  
 
     def aviso_sucesso(self):
         pass
