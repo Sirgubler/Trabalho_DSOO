@@ -92,6 +92,19 @@ class TelaAutor:
         button = window.Read()
         window.Close()
         return button[0]
-        
+
+    def remove_autor(self):
+        layout = [
+        [sg.Text('Digite o nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Button('Remover'), sg.Button('Cancelar')],
+        ]
+        window = sg.Window('Deletando Autor').Layout(layout)
+        botao, dados_tela = window.Read()
+        window.Close()
+        if botao == 'Remover':
+            return dados_tela['autor']
+        else:
+            return None  
+
     def aviso_erro(self):
         print('ERRO!\nDigite um valor válido!')

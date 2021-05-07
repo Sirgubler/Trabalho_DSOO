@@ -123,10 +123,25 @@ class ControladorAutor:
             self.__tela_autor.mostra_autor(dados_autor)
            
         self.abrir_tela_autor()
-
     
     def remover_autor(self):
-        pass
+        existeAutor = False
+        nome = self.__tela_autor.remove_autor()
+        autor_encontrado = None
+
+        if nome != None:
+            for autor in self.__autores:
+                if autor.nome == nome:
+                    existeAutor = True
+                    autor_encontrado = autor
+                    break
+            if existeAutor:
+                self.__controlador_livro.remove_autor(nome)
+                self.__autores.remove(autor_encontrado)
+            else:
+                self.__tela_autor.aviso_erro()
+
+        self.abrir_tela_autor()   
 
     def pesquisar_autores(self):
         self.__manter_tela_aberta = True
@@ -150,4 +165,9 @@ class ControladorAutor:
 
     def fechar_tela_autor(self):
         self.__manter_tela_aberta = False
+    
+    def autor_deletado(self):
+        nome = 'Autor Deletado'
+        autor_deletado = Autor(nome)
 
+        return autor_deletado

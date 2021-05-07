@@ -261,14 +261,33 @@ class ControladorLivro():
                 livros.append(livro.titulo)
             if livros != []:
                 livro_escolhido = self.__tela_livro.lista_livros(livros)
-                if livro_escolhido != None:
-                    self.mostrar_livro(livro_escolhido)
+                if livro_escolhido != 'Voltar':
+                    self.mostrar_livro_autor(livro_escolhido)
                 else:
                     self.__controlador_autor.pesquisar_autores()
             else:
                 self.__controlador_autor.pesquisar_autores()
         
         self.__controlador_autor.pesquisar_autores()
+
+    def mostrar_livro_autor(self, livro_escolhido):
+        existeLivro = False        
+        dados_livro = {}
+        livro_encontrado = None
+
+        for livro in self.__livros:
+            if livro.titulo == livro_escolhido:
+                existeLivro = True
+                livro_encontrado = livro
+                break
+        if existeLivro:
+            titulo = livro_encontrado.titulo
+            autor_objeto = livro_encontrado.autor
+            genero_objeto = livro_encontrado.genero
+            autor = self.__controlador_autor.pega_nome(autor_objeto)
+            genero = self.__controlador_genero.pega_nome(genero_objeto)
+            dados_livro = {'titulo': titulo, 'autor': autor, 'genero': genero}
+            self.__tela_livro.mostra_livro(dados_livro)
 
     def pesquisar_autor_generos(self):
         autor_pesquisado = self.__tela_livro.pesquisa_autor()
@@ -286,7 +305,8 @@ class ControladorLivro():
                 nome_genero = genero.nome
                 generos.append(nome_genero)
             if generos != []:
-                genero_escolhido = self.__tela_livro.lista_generos(generos)
+                lista_final = set(generos)
+                genero_escolhido = self.__tela_livro.lista_generos(lista_final)
                 if genero_escolhido != None:
                     for livro in livros_encontrado:
                         genero_objeto = livro.genero
@@ -299,5 +319,13 @@ class ControladorLivro():
 
         self.__controlador_autor.pesquisar_autores()
 
+    def remove_autor(self, nome: str):
+        autor_deletado = self.__controlador_autor.autor_deletado()
+
+        for livro in self.__livros:
+            objeto_autor = livro.autor
+            if objeto_autor.nome == nome:
+                livro.autor = autor_deletado
+                
     def fechar_tela_livro(self):
         self.__manter_tela_aberta = False
