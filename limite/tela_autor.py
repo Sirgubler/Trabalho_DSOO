@@ -21,7 +21,7 @@ class TelaAutor:
             layout = [
                 ]
             for autor in autores:
-                layout.append([sg.Button(autor, size=(15, 1))])
+                layout.append([sg.Text('Autor de nome: {}'.format(autor), size=(15, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Lista de Autores').Layout(layout)
             button = window.Read()

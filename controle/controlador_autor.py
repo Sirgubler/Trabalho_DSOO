@@ -102,9 +102,8 @@ class ControladorAutor:
             autores.append(autor.nome)
 
         autor_escolhido = self.__tela_autor.lista_autores(autores)
-        if autor_escolhido != 'Voltar':
-            self.mostrar_autor(autor_escolhido)
-        else:
+        
+        if autor_escolhido == 'Voltar':
             self.abrir_tela_autor()
 
     def mostrar_autor(self, autor_escolhido):

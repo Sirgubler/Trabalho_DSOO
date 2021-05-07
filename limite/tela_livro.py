@@ -167,6 +167,18 @@ class TelaLivro():
             window.Close()
             return button[0]   
 
+    def lista_autores(self, autores):
+        if autores != []:
+            layout = [
+                ]
+            for autor in autores:
+                layout.append([sg.Button(autor, size=(15, 1))])
+            layout.append([sg.Button('Voltar', size=(6,1))])
+            window = sg.Window('Lista de Autores do Genero').Layout(layout)
+            button = window.Read()
+            window.Close()
+            return button[0] 
+
     def mostra_genero(self, titulos):
         if titulos != []:
             layout = [
@@ -175,6 +187,18 @@ class TelaLivro():
                 layout.append([sg.Text(titulo, size=(15, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Livros Escritos pelo Autor do Genero Escolhido').Layout(layout)
+            button = window.Read()
+            window.Close()
+            return button[0]  
+
+    def mostra_autor(self, titulos):
+        if titulos != []:
+            layout = [
+                ]
+            for titulo in titulos:
+                layout.append([sg.Text(titulo, size=(15, 1))])
+            layout.append([sg.Button('Voltar', size=(6,1))])
+            window = sg.Window('Livros Escritos pelo Genero do Autor Escolhido').Layout(layout)
             button = window.Read()
             window.Close()
             return button[0]  
