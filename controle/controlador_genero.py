@@ -14,16 +14,19 @@ class ControladorGenero:
 
     def naoexisteGenero(self, nome: str):
         naoexisteGenero = True
+        genero_enviado = None
 
         for genero in self.__generos:
             if genero.nome == nome:
                 naoexisteGenero = False
+                genero_enviado = genero
                 break
         if naoexisteGenero:
             novo_genero = Genero(nome)
             self.__generos.append(novo_genero)
-
-        return novo_genero
+            genero_enviado = novo_genero
+        
+        return genero_enviado
     
     def pega_nome(self, genero: Genero):
         nome = genero.nome

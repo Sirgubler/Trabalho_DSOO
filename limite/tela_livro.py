@@ -116,6 +116,45 @@ class TelaLivro():
         window.Close()
         return button[0]
 
+    def pesquisa_titulo(self):
+        layout = [
+        [sg.Text('Digite o titulo do livro: ', size=(15, 1)), sg.InputText(key = 'titulo')],
+        [sg.Button('Pesquisar'), sg.Button('Cancelar')],
+        ]
+        window = sg.Window('Pesquisando Livro pelo Titulo').Layout(layout)
+        botao, dados_tela = window.Read()
+        window.Close()
+        if botao == 'Pesquisar':
+            return dados_tela['titulo']
+        else:
+            return None  
+    
+    def pesquisa_autor(self):
+        layout = [
+        [sg.Text('Digite o nome do autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Button('Pesquisar'), sg.Button('Cancelar')],
+        ]
+        window = sg.Window('Pesquisando Livros por Autor').Layout(layout)
+        botao, dados_tela = window.Read()
+        window.Close()
+        if botao == 'Pesquisar':
+            return dados_tela['autor']
+        else:
+            return None  
+
+    def pesquisa_genero(self):
+        layout = [
+        [sg.Text('Digite o nome do genero: ', size=(15, 1)), sg.InputText(key = 'genero')],
+        [sg.Button('Pesquisar'), sg.Button('Cancelar')],
+        ]
+        window = sg.Window('Pesquisando Livros por Genero').Layout(layout)
+        botao, dados_tela = window.Read()
+        window.Close()
+        if botao == 'Pesquisar':
+            return dados_tela['genero']
+        else:
+            return None  
+
     def aviso_sucesso(self):
         pass
 

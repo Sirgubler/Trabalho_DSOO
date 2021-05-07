@@ -14,16 +14,19 @@ class ControladorAutor:
 
     def naoexisteAutor(self, nome: str):
         naoexisteAutor = True
+        autor_enviado = None
 
         for autor in self.__autores:
             if autor.nome == nome:
                 naoexisteAutor = False
+                autor_enviado = autor
                 break
         if naoexisteAutor:
             novo_autor = Autor(nome)
             self.__autores.append(novo_autor)
+            autor_enviado = novo_autor
         
-        return novo_autor
+        return autor_enviado
     
     def pega_nome(self, autor: Autor):
         nome = autor.nome

@@ -173,76 +173,72 @@ class ControladorLivro():
     def pesquisar_titulo(self):
         existeLivro = False
         titulo_pesquisado = self.__tela_livro.pesquisa_titulo()
-        encontrado = None
-        
+        livro_encontrado = None
 
-        for livro in self.__livros:
-            if livro.titulo == titulo_pesquisado:
-                existeLivro = True
-                encontrado = livro
-                break
-        if existeLivro:
-            titulo = livro.titulo
-            autor = livro.autor.nome
-            genero = livro.genero.nome
-            dados_livro = [titulo, autor, genero]
-            mostrar_livro = self.__tela_livro.mostra_livro(dados_livro)
-            if mostrar_livro == None:
-                self.pesquisar_livros()
-
-    def pesquisar_autor(self):
-        existeLivro = False
-        autor_pesquisado = self.__tela_livro.pesquisa_autor()
-        encontrados = []
-        lista_titulos = []
-        
-        for livro in self.__livros:
-            if livro.autor.nome == autor_pesquisado:
-                existeLivro = True
-                encontrados.append(livro)
-        if existeLivro:
-            for livro in encontrados:
-                lista_titulos.append(livro.titulo)
-                livro_escolhido = self.__tela_livro.lista_livros(lista_titulos)
-            if livro_escolhido != None:
-                for livro in encontrados:
-                    if livro.titulo == livro_escolhido:
-                        titulo = livro.titulo
-                        autor = livro.autor.nome
-                        genero = livro.genero.nome
-                        dados_livro = [titulo, autor, genero]
-                        mostrar_livro = self.__tela_livro.mostra_livro(dados_livro)
-                        if mostrar_livro == None:
-                            self.pesquisar_autor()
+        if titulo_pesquisado != None:   
+            for livro in self.__livros:
+                if livro.titulo == titulo_pesquisado:
+                    existeLivro = True
+                    livro_encontrado = livro
+                    break
+            if existeLivro:
+                titulo = livro_encontrado.titulo
+                autor_objeto = livro_encontrado.autor
+                genero_objeto = livro_encontrado.genero
+                autor = self.__controlador_autor.pega_nome(autor_objeto)
+                genero = self.__controlador_genero.pega_nome(genero_objeto)
+                dados_livro = {'titulo': titulo, 'autor': autor, 'genero': genero}
+                self.__tela_livro.mostra_livro(dados_livro)                
+            else:
+                self.__tela_livro.aviso_erro()
 
         self.pesquisar_livros()
 
-    def pesquisar_genero(self):
-        existeLivro = False
-        genero_pesquisado = self.__tela_livro.pesquisa_genero()
-        encontrados = []
-        lista_titulos = []
-        
-        for livro in self.__livros:
-            if livro.genero.nome == genero_pesquisado:
-                existeLivro = True
-                encontrados.append(livro)
-        if existeLivro:
-            for livro in encontrados:
-                lista_titulos.append(livro.titulo)
-                livro_escolhido = self.__tela_livro.lista_livros(lista_titulos)
-            if livro_escolhido != None:
-                for livro in encontrados:
-                    if livro.titulo == livro_escolhido:
-                        titulo = livro.titulo
-                        autor = livro.autor.nome
-                        genero = livro.genero.nome
-                        dados_livro = [titulo, autor, genero]
-                        mostrar_livro = self.__tela_livro.mostra_livro(dados_livro)
-                        if mostrar_livro == None:
-                            self.pesquisar_genero()
+    def pesquisar_autor(self):
+        autor_pesquisado = self.__tela_livro.pesquisa_autor()
+        livros_encontrado = []
+        livros = []
 
-        self.pesquisar_livros()                   
+        for livro in self.__livros:
+            autor = livro.autor
+            if autor.nome == autor_pesquisado:
+                livros_encontrado.append(livro)
+        if livros_encontrado != []:
+            for livro in livros_encontrado:
+                livros.append(livro.titulo)
+            if livros != []:
+                livro_escolhido = self.__tela_livro.lista_livros(livros)
+                if livro_escolhido != None:
+                    self.mostrar_livro(livro_escolhido)
+                else:
+                    self.pesquisar_livros()
+            else:
+                self.pesquisar_livros()
+        
+        self.pesquisar_livros()
+
+    def pesquisar_genero(self):
+        genero_pesquisado = self.__tela_livro.pesquisa_genero()
+        livros_encontrado = []
+        livros = []
+
+        for livro in self.__livros:
+            genero = livro.genero
+            if genero.nome == genero_pesquisado:
+                livros_encontrado.append(livro)
+        if livros_encontrado != []:
+            for livro in livros_encontrado:
+                livros.append(livro.titulo)
+            if livros != []:
+                livro_escolhido = self.__tela_livro.lista_livros(livros)
+                if livro_escolhido != None:
+                    self.mostrar_livro(livro_escolhido)
+                else:
+                    self.pesquisar_livros()
+            else:
+                self.pesquisar_livros()
+        
+        self.pesquisar_livros()               
 
 
     def verificar_analises(self):
