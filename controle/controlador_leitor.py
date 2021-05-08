@@ -1,5 +1,7 @@
 from limite.tela_leitor import TelaLeitor
 from entidade.leitor import Leitor
+from persistencia.leitor_dao import LeitorDAO
+
 
 class ControladorLeitor():
     

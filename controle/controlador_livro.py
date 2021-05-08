@@ -2,16 +2,19 @@ from entidade.livro import Livro
 from limite.tela_livro import TelaLivro
 from controle.controlador_autor import ControladorAutor
 from controle.controlador_genero import ControladorGenero
+from persistencia.livro_dao import LivroDAO
+
 
 class ControladorLivro():
 
     def __init__(self, controlador_principal):
-        self.__livros = []
         self.__tela_livro = TelaLivro()
         self.__controlador_autor = ControladorAutor(self)
         self.__controlador_genero = ControladorGenero(self)
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
+        self.__dao = LivroDAO()
+
 
     def controlador_autor(self):
         self.__controlador_autor.abrir_tela_autor()
@@ -44,13 +47,13 @@ class ControladorLivro():
             autor_escolhido = self.__controlador_autor.naoexisteAutor(autor)
             genero_escolhido = self.__controlador_genero.naoexisteGenero(genero)
             
-            for livro in self.__livros:
+            for livro in self.__dao.get_all():
                 if livro.titulo == titulo:
                     naoexisteLivro = False
                     break
             if naoexisteLivro:
                 novo_livro = Livro(titulo, autor_escolhido, genero_escolhido)
-                self.__livros.append(novo_livro)
+                self.__dao.add(novo_livro)
         
         self.abrir_tela_livro()
 
@@ -60,7 +63,7 @@ class ControladorLivro():
         titulo = self.__tela_livro.busca_titulo()
         livro_encontrado = None
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             if livro.titulo == titulo:
                 existeLivro = True
                 livro_encontrado = livro
@@ -89,7 +92,7 @@ class ControladorLivro():
         naoexisteTitulo = True
         titulo_alterado = self.__tela_livro.altera_titulo()
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             if livro.titulo == titulo_alterado:
                 naoexisteTitulo = False
                 self.__tela_livro.aviso_erro()
@@ -109,7 +112,7 @@ class ControladorLivro():
     def listar_livros(self):
         livros = []
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             livros.append(livro.titulo)
         if livros != []:
             livro_escolhido = self.__tela_livro.lista_livros(livros)
@@ -126,7 +129,7 @@ class ControladorLivro():
         dados_livro = {}
         livro_encontrado = None
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             if livro.titulo == livro_escolhido:
                 existeLivro = True
                 livro_encontrado = livro
@@ -146,10 +149,10 @@ class ControladorLivro():
         naoexisteLivro = True
         titulo = self.__tela_livro.remove_livro()
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             if livro.titulo == titulo:
                 naoexisteLivro = False
-                self.__livros.remove(livro)
+                self.__dao.remove(livro.titulo)
                 break
         if naoexisteLivro:
             self.__tela_livro.aviso_erro()
@@ -176,7 +179,7 @@ class ControladorLivro():
         livro_encontrado = None
 
         if titulo_pesquisado != None:   
-            for livro in self.__livros:
+            for livro in self.__dao.get_all():
                 if livro.titulo == titulo_pesquisado:
                     existeLivro = True
                     livro_encontrado = livro
@@ -199,7 +202,7 @@ class ControladorLivro():
         livros_encontrado = []
         livros = []
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             autor = livro.autor
             if autor.nome == autor_pesquisado:
                 livros_encontrado.append(livro)
@@ -222,7 +225,7 @@ class ControladorLivro():
         livros_encontrado = []
         livros = []
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             genero = livro.genero
             if genero.nome == genero_pesquisado:
                 livros_encontrado.append(livro)
@@ -252,7 +255,7 @@ class ControladorLivro():
         livros_encontrado = []
         livros = []
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             autor = livro.autor
             if autor.nome == autor_pesquisado:
                 livros_encontrado.append(livro)
@@ -275,7 +278,7 @@ class ControladorLivro():
         livros_encontrado = []
         livros = []
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             genero = livro.genero
             if genero.nome == genero_pesquisado:
                 livros_encontrado.append(livro)
@@ -299,7 +302,7 @@ class ControladorLivro():
         autores = []
         titulos = []
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             genero = livro.genero
             if genero.nome == genero_pesquisado:
                 livros_encontrado.append(livro)
@@ -328,7 +331,7 @@ class ControladorLivro():
         dados_livro = {}
         livro_encontrado = None
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             if livro.titulo == livro_escolhido:
                 existeLivro = True
                 livro_encontrado = livro
@@ -347,7 +350,7 @@ class ControladorLivro():
         dados_livro = {}
         livro_encontrado = None
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             if livro.titulo == livro_escolhido:
                 existeLivro = True
                 livro_encontrado = livro
@@ -367,7 +370,7 @@ class ControladorLivro():
         generos = []
         titulos = []
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             autor = livro.autor
             if autor.nome == autor_pesquisado:
                 livros_encontrado.append(livro)
@@ -394,7 +397,7 @@ class ControladorLivro():
     def remove_autor(self, nome: str):
         autor_deletado = self.__controlador_autor.autor_deletado()
 
-        for livro in self.__livros:
+        for livro in self.__dao.get_all():
             objeto_autor = livro.autor
             if objeto_autor.nome == nome:
                 livro.autor = autor_deletado

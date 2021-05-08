@@ -1,29 +1,28 @@
 from entidade.autor import Autor
 from limite.tela_autor import TelaAutor
+from persistencia.autor_dao import AutorDAO
+
 
 class ControladorAutor: 
 
     def __init__(self, controlador_livro):        
-        self.__autores = []
         self.__tela_autor = TelaAutor()
         self.__controlador_livro = controlador_livro
         self.__manter_tela_aberta = True
-
-    def autores(self):
-        return self.autores
+        self.__dao = AutorDAO()
 
     def naoexisteAutor(self, nome: str):
         naoexisteAutor = True
         autor_enviado = None
 
-        for autor in self.__autores:
+        for autor in self.__dao.get_all():
             if autor.nome == nome:
                 naoexisteAutor = False
                 autor_enviado = autor
                 break
         if naoexisteAutor:
             novo_autor = Autor(nome)
-            self.__autores.append(novo_autor)
+            self.__dao.add(novo_autor)
             autor_enviado = novo_autor
         
         return autor_enviado
@@ -36,14 +35,14 @@ class ControladorAutor:
         naoexisteAutor = True
         nome = self.__tela_autor.altera_autor_livro()
 
-        for autor in self.__autores:
+        for autor in self.__dao.get_all():
             if autor.nome == nome:
                 novo_autor = autor
                 naoexisteAutor = False
                 break
         if naoexisteAutor:
             novo_autor = Autor(nome)
-            self.__autores.append(novo_autor)
+            self.__dao.add(novo_autor)
 
         return novo_autor
 
@@ -66,13 +65,13 @@ class ControladorAutor:
         nome = self.__tela_autor.cadastra_autor()
         
         if nome != None:
-            for autor in self.__autores:
+            for autor in self.__dao.get_all():
                 if autor.nome == nome:
                     naoexisteAutor = False
                     break
             if naoexisteAutor:
                 novo_autor = Autor(nome)
-                self.__autores.append(novo_autor)
+                self.__dao.add(novo_autor)
         
         self.abrir_tela_autor()
 
@@ -81,7 +80,7 @@ class ControladorAutor:
         autor_alterado = self.__tela_autor.altera_autor()
         autor_encontrado = None
 
-        for autor in self.__autores:
+        for autor in self.__dao.get_all():
             if autor.nome == autor_alterado:
                 existeAutor = True
                 autor_encontrado = autor
@@ -98,7 +97,7 @@ class ControladorAutor:
     def listar_autores(self):
         autores = []
 
-        for autor in self.__autores:
+        for autor in self.__dao.get_all():
             autores.append(autor.nome)
 
         autor_escolhido = self.__tela_autor.lista_autores(autores)
@@ -111,7 +110,7 @@ class ControladorAutor:
         dados_autor = {}
         autor_encontrado = None
 
-        for autor in self.__autores:
+        for autor in self.__dao.get_all():
             if autor.nome == autor_escolhido:
                 existeAutor = True
                 autor_encontrado = autor
@@ -129,14 +128,14 @@ class ControladorAutor:
         autor_encontrado = None
 
         if nome != None:
-            for autor in self.__autores:
+            for autor in self.__dao.get_all():
                 if autor.nome == nome:
                     existeAutor = True
                     autor_encontrado = autor
                     break
             if existeAutor:
                 self.__controlador_livro.remove_autor(nome)
-                self.__autores.remove(autor_encontrado)
+                self.__dao.remove(autor_encontrado)
             else:
                 self.__tela_autor.aviso_erro()
 

@@ -1,29 +1,27 @@
 from entidade.genero import Genero
 from limite.tela_genero import TelaGenero
+from persistencia.genero_dao import GeneroDAO
 
 class ControladorGenero: 
 
     def __init__(self, controlador_livro):        
-        self.__generos = []
         self.__tela_genero = TelaGenero()
         self.__controlador_livro = controlador_livro
         self.__manter_tela_aberta = True
-
-    def generos(self):
-        return self.__generos
+        self.__dao = GeneroDAO()
 
     def naoexisteGenero(self, nome: str):
         naoexisteGenero = True
         genero_enviado = None
 
-        for genero in self.__generos:
+        for genero in self.__dao.get_all():
             if genero.nome == nome:
                 naoexisteGenero = False
                 genero_enviado = genero
                 break
         if naoexisteGenero:
             novo_genero = Genero(nome)
-            self.__generos.append(novo_genero)
+            self.__dao.add(novo_genero)
             genero_enviado = novo_genero
         
         return genero_enviado
@@ -36,14 +34,14 @@ class ControladorGenero:
         naoexisteGenero = True
         nome = self.__tela_genero.altera_genero_livro()
 
-        for genero in self.__generos:
+        for genero in self.__dao.get_all():
             if genero.nome == nome:
                 naoexisteGenero = False
                 novo_genero = genero
                 break
         if naoexisteGenero:
             novo_genero = Genero(nome)
-            self.__generos.append(novo_genero)
+            self.__dao.add(novo_genero)
 
         return novo_genero
 
@@ -66,13 +64,13 @@ class ControladorGenero:
         nome = self.__tela_genero.cadastra_genero()
         
         if nome != None:
-            for genero in self.__generos:
+            for genero in self.__dao.get_all():
                 if genero.nome == nome:
                     naoexisteGenero = False
                     break
             if naoexisteGenero:
                 novo_genero = Genero(nome)
-                self.__generos.append(novo_genero)
+                self.__dao.add(novo_genero)
         
         self.abrir_tela_genero()
 
@@ -81,7 +79,7 @@ class ControladorGenero:
         genero_alterado = self.__tela_genero.altera_genero()
         genero_encontrado = None
 
-        for genero in self.__generos:
+        for genero in self.__dao.get_all():
             if genero.nome == genero_alterado:
                 existeGenero = True
                 genero_encontrado = genero
@@ -98,7 +96,7 @@ class ControladorGenero:
     def listar_generos(self):
         generos = []
 
-        for genero in self.__generos:
+        for genero in self.__dao.get_all():
             generos.append(genero.nome)
 
         genero_escolhido = self.__tela_genero.lista_generos(generos)
@@ -111,7 +109,7 @@ class ControladorGenero:
         dados_genero = {}
         genero_encontrado = None
 
-        for genero in self.__generos:
+        for genero in self.__dao.get_all():
             if genero.nome == genero_escolhido:
                 existeGenero = True
                 genero_encontrado = genero
@@ -129,14 +127,14 @@ class ControladorGenero:
         genero_encontrado = None
 
         if nome != None:
-            for genero in self.__generos:
+            for genero in self.__dao.get_all():
                 if genero.nome == nome:
                     existeGenero = True
                     genero_encontrado = genero
                     break
             if existeGenero:
                 self.__controlador_livro.remove_genero(nome)
-                self.__generos.remove(genero_encontrado)
+                self.__dao.remove(genero_encontrado)
             else:
                 self.__tela_genero.aviso_erro()
 
