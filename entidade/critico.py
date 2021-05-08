@@ -2,8 +2,8 @@ from entidade.usuario import Usuario
 from entidade.analise import Analise
 
 class Critico(Usuario):
-    def __init__(self, nome: str, senha: str):
-        super().__init__(nome, senha)
+    def __init__(self, nome: str, senha: str, codigo: int):
+        super().__init__(nome, senha, codigo)
         self.livros_analisados = {}
         self.analises = []
 

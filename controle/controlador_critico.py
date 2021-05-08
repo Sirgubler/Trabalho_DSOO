@@ -1,10 +1,11 @@
 from limite.tela_critico import TelaCritico
 from entidade.critico import Critico
+from persistencia.critico_dao import CriticoDAO
 
 class ControladorCritico():
 
     def __init__(self, controlador_principal):
-        self.__criticos = []
+        self.__dao = CriticoDAO()
         self.analises = {}
         self.__tela_critico = TelaCritico()
         self.__controlador_principal = controlador_principal
@@ -12,7 +13,7 @@ class ControladorCritico():
 
     #Espécie de Login
     def selecionar_critico(self):
-        criticos = self.__criticos
+        criticos = self.__dao.get_all()
         while self.__manter_tela_aberta:
             critico_escolhido = self.__tela_critico.selecao_de_critico()
             if critico_escolhido != None:
@@ -28,11 +29,13 @@ class ControladorCritico():
     def cadastrar_critico(self):
         info = self.__tela_critico.cadastro_de_critico()
         if info != None:
-            for critico in self.__criticos:
+            criticos = self.__dao.get_all()
+            for critico in criticos:
                 if info[0] == critico.nome:
                     self.__tela_critico.aviso(3)
                     return
-            self.__criticos.append(Critico(info[0],info[1]))
+            codigo = (len(self.__dao.get_all()) + 1)
+            self.__dao.add(Critico(info[0],info[1],codigo))
             self.__tela_critico.aviso(1)
         else:
             return
@@ -82,3 +85,12 @@ class ControladorCritico():
             else:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida(critico)
+
+    def ver_notas(self):
+        criticos = self.__dao.get_all()
+        for critico in criticos:
+            for livro in critico.livros_analisados.keys():
+                if livro in self.analises.keys():
+                    self.analises[livro].append(critico.livros_analisados[livro])
+                else:
+                    self.analises[livro] = [critico.livros_analisados[livro]]
