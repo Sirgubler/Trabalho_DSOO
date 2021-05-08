@@ -55,6 +55,7 @@ class ControladorLeitor():
             self.notas[livro].append(livro_nota)
         else:
             self.notas[livro] = [livro_nota]
+        self.__dao.add(leitor)
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False

@@ -58,6 +58,7 @@ class ControladorCritico():
                 self.analises[livro].append(livro_analise + '\nAnálise por ' + critico.nome + '\n')
             else:
                 self.analises[livro] = [livro_analise + '\nAnálise por ' + critico.nome + '\n']
+        self.__dao.add(critico)
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False

@@ -8,10 +8,12 @@ class TelaLivro():
     def menu_livro(self):
         sg.ChangeLookAndFeel('DarkGrey3')
         layout = [
-        [sg.Button('Cadastrar Livro'), sg.Button('Alterar Livro'), sg.Button('Listar Livros'), sg.Button('Remover Livro'), sg.Button('Pesquisar Livros'), sg.Button('Verificar Analises'), sg.Button('Verificar Notas'), sg.Button('Menu Autor'), sg.Button('Menu Genero')],
+        [sg.Button('Cadastrar Livro'), sg.Button('Alterar Livro'), sg.Button('Listar Livros')],
+        [sg.Button('Remover Livro'), sg.Button('Pesquisar Livros'), sg.Button('Verificar Analises')], 
+        [sg.Button('Verificar Notas'), sg.Button('Menu Autor'), sg.Button('Menu Genero')],
         [sg.Button('Voltar', size=(6,1))]
         ]
-        window = sg.Window('Menu Livro', element_justification='c', default_button_element_size=(16, 4), auto_size_buttons=False, grab_anywhere=False, size=(1340, 160)).Layout(layout)
+        window = sg.Window('Menu Livro', element_justification='c', default_button_element_size=(16, 4), auto_size_buttons=False, grab_anywhere=False, size=(500, 300)).Layout(layout)
         button = window.Read()
         window.Close()
         return button[0]   
@@ -202,6 +204,21 @@ class TelaLivro():
             button = window.Read()
             window.Close()
             return button[0]  
+
+    def mostra_analises(self, analises: dict):
+        if analises != {}:
+            layout = [
+            ]
+            for livro in analises.keys():
+                layout.append([sg.Text('{}:'.format(livro.titulo))])
+                for analise in analises[livro]:
+                    layout.append([sg.Text(analise)])
+            layout.append([sg.ReadButton('OK', size=(6,1))])
+            window = sg.Window('Analises').Layout(layout)
+            window.Read()
+            window.Close() 
+        else:
+            self.aviso_erro()
 
     def aviso_sucesso(self):
         pass

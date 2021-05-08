@@ -245,7 +245,9 @@ class ControladorLivro():
 
 
     def verificar_analises(self):
-        pass
+        livros = self.__controlador_principal.ver_analises_criticos()
+        self.__tela_livro.mostra_analises(livros)
+
 
     def verificar_notas(self):
         pass
@@ -413,7 +415,7 @@ class ControladorLivro():
             if livro_escolhido != 'Voltar':
                 for livro in self.__dao.get_all():
                     if livro.titulo == livro_escolhido:
-                        livro_objeto = livro_escolhido
+                        livro_objeto = livro
         
         return livro_objeto
                 

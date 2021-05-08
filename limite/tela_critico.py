@@ -78,7 +78,7 @@ class TelaCritico():
             layout = [
                 ]
             for livro in livros_analisados:
-                layout.append([sg.Text('{}:'.format(livro), size=(15, 1))])
+                layout.append([sg.Text('{}:'.format(livro.titulo))])
                 layout.append([sg.Text(livros_analisados[livro], size=(100,5))])
             layout.append([sg.ReadButton('OK', size=(6,1))])
             window = sg.Window('Análises').Layout(layout)
