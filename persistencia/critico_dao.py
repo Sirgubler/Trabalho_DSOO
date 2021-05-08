@@ -3,7 +3,7 @@ from entidade.critico import Critico
 
 class CriticoDAO(DAO):
     def __init__(self):
-        super().__init__('criticos.pkl')
+        super().__init__('persistencia//criticos.pkl')
 
     def add(self, critico: Critico):
         if (critico is not None) and (isinstance(critico, Critico)) and (isinstance(critico.codigo, int)):
