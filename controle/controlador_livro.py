@@ -401,6 +401,21 @@ class ControladorLivro():
             objeto_autor = livro.autor
             if objeto_autor.nome == nome:
                 livro.autor = autor_deletado
+
+    def selecionar_livro(self):
+        livros = []
+        livro_objeto = None
+
+        for livro in self.__dao.get_all():
+            livros.append(livro.titulo)
+        if livros != []:
+            livro_escolhido = self.__tela_livro.lista_livros(livros)
+            if livro_escolhido != 'Voltar':
+                for livro in self.__dao.get_all():
+                    if livro.titulo == livro_escolhido:
+                        livro_objeto = livro_escolhido
+        
+        return livro_objeto
                 
     def fechar_tela_livro(self):
         self.__manter_tela_aberta = False
