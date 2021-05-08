@@ -7,7 +7,7 @@ class Critico(Usuario):
         self.livros_analisados = {}
         self.analises = []
 
-    def analisar_livro(self, livro: str, texto: str):
+    def analisar_livro(self, livro, texto: str):
         analise = Analise(livro, texto)
         self.analises.append(analise)
-        self.livros_analisados[analise.livro] = analise.texto
+        self.livros_analisados[analise.livro.titulo] = analise.texto

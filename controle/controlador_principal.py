@@ -55,10 +55,10 @@ class ControladorPrincipal:
         self.__controlador_critico.cadastrar_critico()
     
     def ver_analises_criticos(self):
-        return self.__controlador_critico.analises
+        return self.__controlador_critico.analises()
 
     def ver_notas_leitores(self):
-        return self.__controlador_leitor.notas
+        return self.__controlador_leitor.notas()
 
     def ver_livros(self):
         livro = self.__controlador_livro.selecionar_livro()

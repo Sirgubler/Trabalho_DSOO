@@ -6,7 +6,6 @@ class ControladorCritico():
 
     def __init__(self, controlador_principal):
         self.__dao = CriticoDAO()
-        self.analises = {}
         self.__tela_critico = TelaCritico()
         self.__controlador_principal = controlador_principal
         self.__manter_tela_aberta = True
@@ -53,11 +52,8 @@ class ControladorCritico():
             pass
         else:
             livro_analise = self.__tela_critico.inclusao_de_livro_analisado()
+            livro_analise = livro_analise + '\nAnálise por ' + critico.nome + '\n'
             critico.analisar_livro(livro, livro_analise)
-            if livro in self.analises.keys():
-                self.analises[livro].append(livro_analise + '\nAnálise por ' + critico.nome + '\n')
-            else:
-                self.analises[livro] = [livro_analise + '\nAnálise por ' + critico.nome + '\n']
         self.__dao.add(critico)
 
     def voltar_tela_principal(self):
@@ -87,11 +83,13 @@ class ControladorCritico():
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida(critico)
 
-    def ver_notas(self):
+    def analises(self):
         criticos = self.__dao.get_all()
+        analises = {}
         for critico in criticos:
             for livro in critico.livros_analisados.keys():
-                if livro in self.analises.keys():
-                    self.analises[livro].append(critico.livros_analisados[livro])
+                if livro in analises.keys():
+                    analises[livro].append(critico.livros_analisados[livro])
                 else:
-                    self.analises[livro] = [critico.livros_analisados[livro]]
+                    analises[livro] = [critico.livros_analisados[livro]]
+        return analises

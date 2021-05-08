@@ -250,7 +250,11 @@ class ControladorLivro():
 
 
     def verificar_notas(self):
-        pass
+        livros = self.__controlador_principal.ver_notas_leitores()
+        for livro in livros.keys():
+            media = sum(livros[livro])/len(livros[livro])
+            livros[livro] = media
+        self.__tela_livro.mostra_notas(livros)
 
     def pesquisar_autor_livros(self):
         autor_pesquisado = self.__tela_livro.pesquisa_autor()

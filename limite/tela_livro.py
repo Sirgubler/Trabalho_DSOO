@@ -210,7 +210,7 @@ class TelaLivro():
             layout = [
             ]
             for livro in analises.keys():
-                layout.append([sg.Text('{}:'.format(livro.titulo))])
+                layout.append([sg.Text('{}:'.format(livro))])
                 for analise in analises[livro]:
                     layout.append([sg.Text(analise)])
             layout.append([sg.ReadButton('OK', size=(6,1))])
@@ -220,6 +220,19 @@ class TelaLivro():
         else:
             self.aviso_erro()
 
+    def mostra_notas(self, notas: dict):
+        if notas != {}:
+            layout = [
+            ]
+            for livro in notas.keys():
+                layout.append([sg.Text('{}: {}'.format(livro, notas[livro]))])
+            layout.append([sg.ReadButton('OK', size=(6,1))])
+            window = sg.Window('Notas').Layout(layout)
+            window.Read()
+            window.Close() 
+        else:
+            self.aviso_erro()
+        
     def aviso_sucesso(self):
         pass
 

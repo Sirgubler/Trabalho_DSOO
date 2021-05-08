@@ -74,7 +74,7 @@ class TelaLeitor():
             layout = [
                 ]
             for livro in livros_lidos:
-                layout.append([sg.Text('{}: {}'.format(livro, livros_lidos[livro.titulo]))])
+                layout.append([sg.Text('{}: {}'.format(livro, livros_lidos[livro]))])
             layout.append([sg.ReadButton('OK', size=(6,1))])
             window = sg.Window('Notas').Layout(layout)
             window.Read()
