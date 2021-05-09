@@ -436,7 +436,7 @@ class ControladorLivro():
         for livro in self.__dao.get_all():
             if livro.genero == genero_encontrado:
                 genero_do_livro = livro.genero
-                genero_do_livro.nome =     
+                genero_do_livro.nome =  nome  
                 
     def fechar_tela_livro(self):
         self.__manter_tela_aberta = False
