@@ -153,6 +153,7 @@ class ControladorLivro():
             if livro.titulo == titulo:
                 naoexisteLivro = False
                 self.__dao.remove(livro.titulo)
+                self.__controlador_principal.remover(livro)
                 break
         if naoexisteLivro:
             self.__tela_livro.aviso_erro()
@@ -245,10 +246,16 @@ class ControladorLivro():
 
 
     def verificar_analises(self):
-        pass
+        livros = self.__controlador_principal.ver_analises_criticos()
+        self.__tela_livro.mostra_analises(livros)
+
 
     def verificar_notas(self):
-        pass
+        livros = self.__controlador_principal.ver_notas_leitores()
+        for livro in livros.keys():
+            media = sum(livros[livro])/len(livros[livro])
+            livros[livro] = media
+        self.__tela_livro.mostra_notas(livros)
 
     def pesquisar_autor_livros(self):
         autor_pesquisado = self.__tela_livro.pesquisa_autor()
@@ -413,22 +420,21 @@ class ControladorLivro():
             if livro_escolhido != 'Voltar':
                 for livro in self.__dao.get_all():
                     if livro.titulo == livro_escolhido:
-                        livro_objeto = livro_escolhido
+                        livro_objeto = livro
         
         return livro_objeto
-
-    def selecionar_livro_leitor(self):
-        livros = []
-        livro_titulo = None
-
+    
+    def sincronia_autor(self, autor_encontrado, nome):
         for livro in self.__dao.get_all():
-            livros.append(livro.titulo)
-        if livros != []:
-            livro_escolhido = self.__tela_livro.lista_livros(livros)
-            if livro_escolhido != 'Voltar':
-                livro_titulo = livro_escolhido
-        
-        return livro_titulo
+            if livro.autor == autor_encontrado:
+                autor_do_livro = livro.autor
+                autor_do_livro.nome = nome
+
+    def sincronia_genero(self, genero_encontrado, nome):
+        for livro in self.__dao.get_all():
+            if livro.genero == genero_encontrado:
+                genero_do_livro = livro.genero
+                genero_do_livro.nome = nome
                 
     def fechar_tela_livro(self):
         self.__manter_tela_aberta = False

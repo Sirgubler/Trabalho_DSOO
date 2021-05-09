@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from excecao.nenhum_livro import NenhumLivro
 
 class TelaLeitor():
 
@@ -51,10 +52,10 @@ class TelaLeitor():
         [sg.Text('Nota:', size=(15, 1))],
         [sg.Combo([10,9,8,7,6,5,4,3,2,1], enable_events=True, key='Nota')]
         ]
-        window = sg.Window('Análise', element_justification='c').Layout(layout)
+        window = sg.Window('Nota', element_justification='c').Layout(layout)
         cadastro = window.Read()
         window.Close()
-        self.aviso(5)
+        self.aviso(2)
         return cadastro[1]['Nota']
 
     #Opções específicas do leitor. É chamada pela função abrir_menu_leitor()
@@ -74,23 +75,28 @@ class TelaLeitor():
             layout = [
                 ]
             for livro in livros_lidos:
-                layout.append([sg.Text('{}: {}'.format(livro, livros_lidos[livro]), size=(15, 1))])
+                layout.append([sg.Text('{}: {}'.format(livro, livros_lidos[livro]))])
             layout.append([sg.ReadButton('OK', size=(6,1))])
             window = sg.Window('Notas').Layout(layout)
             window.Read()
             window.Close()   
         else:
-            self.aviso(4)     
-            return
+            raise NenhumLivro('Leitor')     
 
     def aviso(self, tipo):
         if tipo == 1:
             sg.popup('Leitor Cadastrado!')
         elif tipo == 2:
-            sg.popup('ERRO!', 'Login inválido')
-        elif tipo == 3:
-            sg.popup('ERRO!','Leitor já cadastrado!')
-        elif tipo == 4:
-            sg.popup('Nunhum Livro Lido!')
-        elif tipo == 5:
             sg.popup('Livro Lido com Sucesso!')
+        elif tipo == 3:
+            layout = [
+            [sg.Text('Esse livro já possui uma nota, deseja altera-la?')],
+            [sg.ReadButton('Sim', size=(6,1)), sg.ReadButton('Não', size=(6,1))]
+            ]
+            window = sg.Window('Aviso!', element_justification='c', default_button_element_size=(6, 1), auto_size_buttons=False, grab_anywhere=False).Layout(layout)
+            button = window.Read()
+            window.Close()
+            if button[0] == 'Sim':
+                return True
+            else:
+                return False

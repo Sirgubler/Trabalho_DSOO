@@ -11,7 +11,7 @@ class TelaAutor:
         [sg.Button('Cadastrar Autor'), sg.Button('Alterar Autor'), sg.Button('Listar Autores'), sg.Button('Remover Autor'), sg.Button('Pesquisar Autores'), ],
         [sg.Button('Voltar', size=(6,1))]
         ]
-        window = sg.Window('Menu Autor', element_justification='c', default_button_element_size=(16, 4), auto_size_buttons=False, grab_anywhere=False, size=(1280, 160)).Layout(layout)
+        window = sg.Window('Menu Autor', element_justification='c', default_button_element_size=(16, 4), auto_size_buttons=False, grab_anywhere=False, size=(800, 160)).Layout(layout)
         button = window.Read()
         window.Close()
         return button[0]
@@ -30,7 +30,7 @@ class TelaAutor:
 
     def altera_autor_livro(self):
         layout = [
-        [sg.Text('Digite o nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Text('Digite o nome do Autor: ', size=(20, 1)), sg.InputText(key = 'autor')],
         [sg.Button('Alterar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Alteracao de Autor do Livro').Layout(layout)
@@ -43,7 +43,7 @@ class TelaAutor:
     
     def cadastra_autor(self):
         layout = [
-        [sg.Text('Digite o nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Text('Digite o nome do Autor: ', size=(20, 1)), sg.InputText(key = 'autor')],
         [sg.Button('Cadastrar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Cadastrando um novo Autor').Layout(layout)
@@ -56,7 +56,7 @@ class TelaAutor:
     
     def altera_autor(self):
         layout = [
-        [sg.Text('Digite o nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Text('Digite o nome do Autor: ', size=(20, 1)), sg.InputText(key = 'autor')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Buscar Autor para Alteracao').Layout(layout)
@@ -69,7 +69,7 @@ class TelaAutor:
 
     def alteracao(self):
         layout = [
-        [sg.Text('Digite o novo nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Text('Digite o novo nome do Autor: ', size=(20, 1)), sg.InputText(key = 'autor')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Alteracao de Autor').Layout(layout)
@@ -95,7 +95,7 @@ class TelaAutor:
 
     def remove_autor(self):
         layout = [
-        [sg.Text('Digite o nome do Autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Text('Digite o nome do Autor: ', size=(20, 1)), sg.InputText(key = 'autor')],
         [sg.Button('Remover'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Deletando Autor').Layout(layout)
