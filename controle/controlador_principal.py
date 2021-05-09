@@ -63,3 +63,7 @@ class ControladorPrincipal:
     def ver_livros(self):
         livro = self.__controlador_livro.selecionar_livro()
         return livro
+
+    def remover(self, livro):
+        self.__controlador_critico.remover_analise(livro)
+        self.__controlador_leitor.remover_nota(livro)

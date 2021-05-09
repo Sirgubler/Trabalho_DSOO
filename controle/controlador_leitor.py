@@ -97,6 +97,11 @@ class ControladorLeitor():
                     notas[livro] = [leitor.livros_lidos[livro]]
         return notas
 
+    def remover_nota(self, livro):
+        leitores = self.__dao.get_all()
+        for leitor in leitores:
+            if livro.titulo in leitor.livros_lidos.keys():
+                leitor.livros_lidos.pop(livro.titulo)
                                             
                 
                 

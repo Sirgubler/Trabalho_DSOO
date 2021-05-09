@@ -153,6 +153,7 @@ class ControladorLivro():
             if livro.titulo == titulo:
                 naoexisteLivro = False
                 self.__dao.remove(livro.titulo)
+                self.__controlador_principal.remover(livro)
                 break
         if naoexisteLivro:
             self.__tela_livro.aviso_erro()

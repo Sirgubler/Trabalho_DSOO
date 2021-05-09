@@ -50,7 +50,7 @@ class ControladorCritico():
         livro = self.__controlador_principal.ver_livros()
         if livro.titulo in critico.livros_analisados.keys():
             alterar = self.__tela_critico.aviso(6)
-            if alterar == True:
+            if alterar == False:
                 return
         if livro == 0:
             return
@@ -97,3 +97,9 @@ class ControladorCritico():
                 else:
                     analises[livro] = [critico.livros_analisados[livro]]
         return analises
+    
+    def remover_analise(self, livro):
+        criticos = self.__dao.get_all()
+        for critico in criticos:
+            if livro.titulo in critico.livros_analisados.keys():
+                critico.livros_analisados.pop(livro.titulo)
