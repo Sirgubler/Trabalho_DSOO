@@ -1,6 +1,8 @@
 from limite.tela_critico import TelaCritico
 from entidade.critico import Critico
 from persistencia.critico_dao import CriticoDAO
+from excecao.usuario_cadastrado import UsuarioCadastrado
+from excecao.login_invalido import LoginInvalido
 
 class ControladorCritico():
 
@@ -21,7 +23,7 @@ class ControladorCritico():
                         if critico.senha == critico_escolhido[1]:
                             self.abrir_menu_critico(critico)
                             return
-                self.__tela_critico.aviso(2)
+                raise LoginInvalido()
             else:
                 return
 
@@ -31,8 +33,7 @@ class ControladorCritico():
             criticos = self.__dao.get_all()
             for critico in criticos:
                 if info[0] == critico.nome:
-                    self.__tela_critico.aviso(3)
-                    return
+                    raise UsuarioCadastrado(str(type(critico).__name__))
             codigo = (len(self.__dao.get_all()) + 1)
             self.__dao.add(Critico(info[0],info[1],codigo))
             self.__tela_critico.aviso(1)
@@ -49,7 +50,7 @@ class ControladorCritico():
     def incluir_livro_analisado(self, critico: Critico):
         livro = self.__controlador_principal.ver_livros()
         if livro.titulo in critico.livros_analisados.keys():
-            alterar = self.__tela_critico.aviso(6)
+            alterar = self.__tela_critico.aviso(3)
             if alterar == False:
                 return
         if livro == 0:

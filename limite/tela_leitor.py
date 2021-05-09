@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from excecao.nenhum_livro import NenhumLivro
 
 class TelaLeitor():
 
@@ -51,10 +52,10 @@ class TelaLeitor():
         [sg.Text('Nota:', size=(15, 1))],
         [sg.Combo([10,9,8,7,6,5,4,3,2,1], enable_events=True, key='Nota')]
         ]
-        window = sg.Window('Análise', element_justification='c').Layout(layout)
+        window = sg.Window('Nota', element_justification='c').Layout(layout)
         cadastro = window.Read()
         window.Close()
-        self.aviso(5)
+        self.aviso(2)
         return cadastro[1]['Nota']
 
     #Opções específicas do leitor. É chamada pela função abrir_menu_leitor()
@@ -80,21 +81,14 @@ class TelaLeitor():
             window.Read()
             window.Close()   
         else:
-            self.aviso(4)     
-            return
+            raise NenhumLivro('Leitor')     
 
     def aviso(self, tipo):
         if tipo == 1:
             sg.popup('Leitor Cadastrado!')
         elif tipo == 2:
-            sg.popup('ERRO!', 'Login inválido')
-        elif tipo == 3:
-            sg.popup('ERRO!','Leitor já cadastrado!')
-        elif tipo == 4:
-            sg.popup('Nunhum Livro Lido!')
-        elif tipo == 5:
             sg.popup('Livro Lido com Sucesso!')
-        elif tipo == 6:
+        elif tipo == 3:
             layout = [
             [sg.Text('Esse livro já possui uma nota, deseja altera-la?')],
             [sg.ReadButton('Sim', size=(6,1)), sg.ReadButton('Não', size=(6,1))]

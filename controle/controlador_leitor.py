@@ -1,6 +1,8 @@
 from limite.tela_leitor import TelaLeitor
 from entidade.leitor import Leitor
 from persistencia.leitor_dao import LeitorDAO
+from excecao.usuario_cadastrado import UsuarioCadastrado
+from excecao.login_invalido import LoginInvalido
 
 class ControladorLeitor():
     
@@ -21,7 +23,7 @@ class ControladorLeitor():
                         if leitor.senha == leitor_escolhido[1]:
                             self.abrir_menu_leitor(leitor)
                             return
-                self.__tela_leitor.aviso(2)
+                raise LoginInvalido()
             else:
                 return
 
@@ -31,11 +33,9 @@ class ControladorLeitor():
             leitores = self.__dao.get_all()
             for leitor in leitores:
                 if info[0] == leitor.nome:
-                    self.__tela_leitor.aviso(3)
-                    return
+                    raise UsuarioCadastrado(str(type(leitor).__name__))
             codigo = (len(self.__dao.get_all()) + 1)
             self.__dao.add(Leitor(info[0],info[1],codigo))
-            self.__tela_leitor.aviso(1)
         else:
             return
 
@@ -49,7 +49,7 @@ class ControladorLeitor():
     def incluir_livro_lido(self, leitor: Leitor):
         livro = self.__controlador_principal.ver_livros()
         if livro.titulo in leitor.livros_lidos.keys():
-            alterar = self.__tela_leitor.aviso(6)
+            alterar = self.__tela_leitor.aviso(3)
             if alterar == False:
                 return
         if livro == 0:

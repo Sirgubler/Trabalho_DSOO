@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from excecao.nenhum_livro import NenhumLivro
 
 class TelaCritico():
 
@@ -56,7 +57,7 @@ class TelaCritico():
         cadastro = window.Read()
         window.Close()
         if cadastro[0] == 'Cadastrar':
-            self.aviso(5)
+            self.aviso(2)
             return cadastro[1][0]
         else:
             return None
@@ -85,21 +86,14 @@ class TelaCritico():
             window.Read()
             window.Close()   
         else:
-            self.aviso(4)     
-            return
+            raise NenhumLivro('Critico')
 
     def aviso(self, tipo):
         if tipo == 1:
             sg.popup('Crítico Cadastrado!')
         elif tipo == 2:
-            sg.popup('ERRO!', 'Login inválido')
-        elif tipo == 3:
-            sg.popup('ERRO!','Crítico já cadastrado!')
-        elif tipo == 4:
-            sg.popup('Nunhum Livro Analisado!')
-        elif tipo == 5:
             sg.popup('Livro Analisado com Sucesso!')
-        elif tipo == 6:
+        elif tipo == 3:
             layout = [
             [sg.Text('Esse livro já possui uma análise, deseja altera-la?')],
             [sg.ReadButton('Sim', size=(6,1)), sg.ReadButton('Não', size=(6,1))]
