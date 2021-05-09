@@ -48,8 +48,12 @@ class ControladorCritico():
     #Não confundir com o cadastro de livros da classe Livro
     def incluir_livro_analisado(self, critico: Critico):
         livro = self.__controlador_principal.ver_livros()
+        if livro.titulo in critico.livros_analisados.keys():
+            alterar = self.__tela_critico.aviso(6)
+            if alterar == True:
+                return
         if livro == 0:
-            pass
+            return
         else:
             livro_analise = self.__tela_critico.inclusao_de_livro_analisado()
             livro_analise = livro_analise + '\nAnálise por ' + critico.nome + '\n'

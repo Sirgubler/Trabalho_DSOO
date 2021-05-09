@@ -99,3 +99,16 @@ class TelaCritico():
             sg.popup('Nunhum Livro Analisado!')
         elif tipo == 5:
             sg.popup('Livro Analisado com Sucesso!')
+        elif tipo == 6:
+            layout = [
+            [sg.Text('Esse livro já possui uma análise, deseja altera-la?')],
+            [sg.ReadButton('Sim', size=(6,1)), sg.ReadButton('Não', size=(6,1))]
+            ]
+            window = sg.Window('Aviso!', element_justification='c', default_button_element_size=(6, 1), auto_size_buttons=False, grab_anywhere=False).Layout(layout)
+            button = window.Read()
+            window.Close()
+            if button[0] == 'Sim':
+                return True
+            else:
+                return False
+            

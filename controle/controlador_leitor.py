@@ -48,8 +48,15 @@ class ControladorLeitor():
     #Não confundir com o cadastro de livros da classe Livro
     def incluir_livro_lido(self, leitor: Leitor):
         livro = self.__controlador_principal.ver_livros()
-        livro_nota = self.__tela_leitor.inclusao_de_livro_lido()
-        leitor.adicionar_livro(livro.titulo, livro_nota)
+        if livro.titulo in leitor.livros_lidos.keys():
+            alterar = self.__tela_leitor.aviso(6)
+            if alterar == False:
+                return
+        if livro == 0:
+            return
+        else:
+            livro_nota = self.__tela_leitor.inclusao_de_livro_lido()
+            leitor.adicionar_livro(livro.titulo, livro_nota)
         self.__dao.add(leitor)
 
     def voltar_tela_principal(self):
