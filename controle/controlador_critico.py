@@ -23,7 +23,7 @@ class ControladorCritico():
                         if critico.senha == critico_escolhido[1]:
                             self.abrir_menu_critico(critico)
                             return
-                raise LoginInvalido()
+                assert LoginInvalido()
             else:
                 return
 
@@ -33,7 +33,8 @@ class ControladorCritico():
             criticos = self.__dao.get_all()
             for critico in criticos:
                 if info[0] == critico.nome:
-                    raise UsuarioCadastrado(str(type(critico).__name__))
+                    assert UsuarioCadastrado(str(type(critico).__name__))
+                    return
             codigo = (len(self.__dao.get_all()) + 1)
             self.__dao.add(Critico(info[0],info[1],codigo))
             self.__tela_critico.aviso(1)
@@ -78,7 +79,7 @@ class ControladorCritico():
     #Não confundir com o abrir_tela_critico onde estão as opções de 'login' ou cadastro
     def abrir_menu_critico(self, critico: Critico):
         nome = critico.nome
-        opcoes = {'Ver livros analisados': self.retornar_livros, 'Incluir um livro analisado': self.incluir_livro_analisado, 'Voltar': self.abrir_tela_critico}
+        opcoes = {'Ver livros analisados': self.retornar_livros, 'Incluir um livro analisado': self.incluir_livro_analisado, 'Alterar Senha': self.alterar_senha, 'Deletar Crítico': self.deletar_critico, 'Voltar': self.abrir_tela_critico}
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_critico.menu_critico(nome)
             if opcao_escolhida == 'Voltar':
@@ -87,6 +88,19 @@ class ControladorCritico():
             else:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida(critico)
+
+    def deletar_critico(self, critico: Critico):
+        opcao = self.__tela_critico.deletar_critico(critico.nome)
+        if opcao == 'Deletar':
+            self.__dao.remove(critico.codigo)
+            self.__tela_critico.aviso(4)
+            self.abrir_tela_critico()
+
+    def alterar_senha(self, critico: Critico):
+        opcao = self.__tela_critico.alterar_senha()
+        if opcao[1] == 'Alterar':
+            critico.senha = opcao[0][0]
+            self.__tela_critico.aviso(5)
 
     def analises(self):
         criticos = self.__dao.get_all()
@@ -104,3 +118,14 @@ class ControladorCritico():
         for critico in criticos:
             if livro.titulo in critico.livros_analisados.keys():
                 critico.livros_analisados.pop(livro.titulo)
+                self.__dao.add(critico)
+    
+    def alterar_analise(self, livro):
+        criticos = self.__dao.get_all()
+        for critico in criticos:
+            if livro.titulo in critico.livros_analisados.keys():
+                for livro_analisado in critico.livros_analisados.keys():
+                    if livro_analisado == livro.titulo:
+                        livro_analisado = livro.titulo
+                        break
+                self.__dao.add(critico)

@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from excecao.nenhum_livro import NenhumLivro
+from excecao.nome_invalido import NomeInvalido
 
 class TelaCritico():
 
@@ -35,7 +36,7 @@ class TelaCritico():
     def cadastro_de_critico(self):
         layout = [
         [sg.Text('Digite o nome do crítico que deseja cadastrar')],
-        [sg.Text('Nome', size=(15, 1)), sg.InputText(size=(45,1), )],
+        [sg.Text('Nome', size=(15, 1)), sg.InputText(size=(45,1))],
         [sg.Text('Senha', size=(15, 1)), sg.InputText(password_char='*')],
         [sg.ReadButton('Cadastrar'), sg.ReadButton('Cancelar')],
         ]
@@ -66,10 +67,10 @@ class TelaCritico():
     def menu_critico(self, nome):
         sg.ChangeLookAndFeel('DarkGrey3')
         layout = [
-        [sg.ReadButton('Ver livros analisados'), sg.ReadButton('Incluir um livro analisado')],
+        [sg.ReadButton('Ver livros analisados'), sg.ReadButton('Incluir um livro analisado'), sg.ReadButton('Alterar Senha'), sg.ReadButton('Deletar Crítico'),],
         [sg.ReadButton('Voltar', size=(6,1))]
         ]
-        window = sg.Window('Crítico: {}'.format(nome), element_justification='c', default_button_element_size=(20, 4), auto_size_buttons=False, grab_anywhere=False, size=(400, 125)).Layout(layout)
+        window = sg.Window('Crítico: {}'.format(nome), element_justification='c', default_button_element_size=(20, 4), auto_size_buttons=False, grab_anywhere=False, size=(800, 125)).Layout(layout)
         button = window.Read()
         window.Close()
         return button[0]
@@ -86,7 +87,33 @@ class TelaCritico():
             window.Read()
             window.Close()   
         else:
-            raise NenhumLivro('Critico')
+            assert NenhumLivro('Critico')
+
+    def deletar_critico(self, critico):
+        layout = [
+        [sg.Text('Tem certeza que deseja deletar este crítico? Essa ação é irreversíel.')],
+        [sg.Text('Para deletar, digite o nome do Crítico:'), sg.InputText(size=(45,1))],
+        [sg.ReadButton('Deletar', size=(6,1)), sg.ReadButton('Voltar', size=(6,1))]
+        ]
+        window = sg.Window('Deletar Crítico').Layout(layout)
+        button, nome = window.Read()
+        window.Close()
+        if button == 'Deletar' and nome[0] == critico:
+            return button
+        elif nome[0] != critico and button != 'Voltar':
+            assert NomeInvalido('Critico')
+
+    def alterar_senha(self):
+        layout = [
+        [sg.Text('Digite sua nova senha:'), sg.InputText(size=(45,1), password_char='*')],
+        [sg.ReadButton('Alterar', size=(6,1)), sg.ReadButton('Voltar', size=(6,1))]
+        ]
+        window = sg.Window('Deletar Crítico').Layout(layout)
+        button, senha = window.Read()
+        window.Close()
+        if button == 'Alterar':
+            return senha, button
+        
 
     def aviso(self, tipo):
         if tipo == 1:
@@ -105,4 +132,8 @@ class TelaCritico():
                 return True
             else:
                 return False
+        elif tipo == 4:
+            sg.popup('Crítico Deletado!')
+        elif tipo == 5:
+            sg.popup('Senha Alterada')
             

@@ -25,7 +25,7 @@ class TelaGenero:
         botao, dados_tela = window.Read()
         window.Close()
         if botao == 'Alterar':
-            return dados_tela['autor']
+            return dados_tela['genero']
         else:
             return None
     
