@@ -26,4 +26,3 @@ class ControladorAdmin():
 
     def voltar_tela_principal(self):
         self.__manter_tela_aberta = False
-        #teste
