@@ -88,6 +88,7 @@ class ControladorAutor:
         if existeAutor:
             novo_nome = self.__tela_autor.alteracao()
             if novo_nome != None:
+                self.__controlador_livro.sincronia_autor(autor_encontrado, novo_nome)          
                 autor_encontrado.nome = novo_nome
             else:
                 self.abrir_tela_autor()
