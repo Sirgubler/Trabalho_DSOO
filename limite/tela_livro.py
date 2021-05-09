@@ -35,7 +35,7 @@ class TelaLivro():
     
     def busca_titulo(self):
         layout = [
-        [sg.Text('Digite o titulo do livro: ', size=(15, 1)), sg.InputText(key = 'titulo')],
+        [sg.Text('Digite o titulo do livro: ', size=(20, 1)), sg.InputText(key = 'titulo')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Buscar Livro para Alteracao').Layout(layout)
@@ -58,7 +58,7 @@ class TelaLivro():
     
     def altera_titulo(self):
         layout = [
-        [sg.Text('Digite o novo titulo do livro: ', size=(15, 1)), sg.InputText(key = 'titulo')],
+        [sg.Text('Digite o novo titulo do livro: ', size=(20, 1)), sg.InputText(key = 'titulo')],
         [sg.Button('Alterar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Alteracao de Titulo').Layout(layout)
@@ -74,7 +74,7 @@ class TelaLivro():
             layout = [
                 ]
             for livro in livros:
-                layout.append([sg.Button(livro, size=(15, 1))])
+                layout.append([sg.Button(livro, size=(20, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Lista de Livros').Layout(layout)
             button = window.Read()
@@ -84,9 +84,9 @@ class TelaLivro():
     def mostra_livro(self, dados_livro):
         if dados_livro != {}:
             layout = [
-            [sg.Text('Titulo: {}'.format(dados_livro['titulo']), size=(15, 1))],
-            [sg.Text('Autor: {}'.format(dados_livro['autor']), size=(15, 1))],
-            [sg.Text('Genero: {}'.format(dados_livro['genero']), size=(15, 1))],
+            [sg.Text('Titulo: {}'.format(dados_livro['titulo']), size=(20, 1))],
+            [sg.Text('Autor: {}'.format(dados_livro['autor']), size=(20, 1))],
+            [sg.Text('Genero: {}'.format(dados_livro['genero']), size=(20, 1))],
             [sg.Button('Voltar')],
             ]
             window = sg.Window('Lista de Livros').Layout(layout)
@@ -97,7 +97,7 @@ class TelaLivro():
 
     def remove_livro(self):
         layout = [
-        [sg.Text('Digite o titulo do livro: ', size=(15, 1)), sg.InputText(key = 'titulo')],
+        [sg.Text('Digite o titulo do livro: ', size=(20, 1)), sg.InputText(key = 'titulo')],
         [sg.Button('Remover'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Deletando Livro').Layout(layout)
@@ -120,7 +120,7 @@ class TelaLivro():
 
     def pesquisa_titulo(self):
         layout = [
-        [sg.Text('Digite o titulo do livro: ', size=(15, 1)), sg.InputText(key = 'titulo')],
+        [sg.Text('Digite o titulo do livro: ', size=(20, 1)), sg.InputText(key = 'titulo')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Pesquisando Livro pelo Titulo').Layout(layout)
@@ -133,7 +133,7 @@ class TelaLivro():
     
     def pesquisa_autor(self):
         layout = [
-        [sg.Text('Digite o nome do autor: ', size=(15, 1)), sg.InputText(key = 'autor')],
+        [sg.Text('Digite o nome do autor: ', size=(20, 1)), sg.InputText(key = 'autor')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Pesquisando Livros por Autor').Layout(layout)
@@ -146,7 +146,7 @@ class TelaLivro():
 
     def pesquisa_genero(self):
         layout = [
-        [sg.Text('Digite o nome do genero: ', size=(15, 1)), sg.InputText(key = 'genero')],
+        [sg.Text('Digite o nome do genero: ', size=(20, 1)), sg.InputText(key = 'genero')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Pesquisando Livros por Genero').Layout(layout)
@@ -162,7 +162,7 @@ class TelaLivro():
             layout = [
                 ]
             for genero in generos:
-                layout.append([sg.Button(genero, size=(15, 1))])
+                layout.append([sg.Button(genero, size=(20, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Lista de Generos do Autor').Layout(layout)
             button = window.Read()
@@ -174,7 +174,7 @@ class TelaLivro():
             layout = [
                 ]
             for autor in autores:
-                layout.append([sg.Button(autor, size=(15, 1))])
+                layout.append([sg.Button(autor, size=(20, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Lista de Autores do Genero').Layout(layout)
             button = window.Read()
@@ -186,7 +186,7 @@ class TelaLivro():
             layout = [
                 ]
             for titulo in titulos:
-                layout.append([sg.Text(titulo, size=(15, 1))])
+                layout.append([sg.Text(titulo, size=(20, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Livros Escritos pelo Autor do Genero Escolhido').Layout(layout)
             button = window.Read()
@@ -198,7 +198,7 @@ class TelaLivro():
             layout = [
                 ]
             for titulo in titulos:
-                layout.append([sg.Text(titulo, size=(15, 1))])
+                layout.append([sg.Text(titulo, size=(20, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Livros Escritos pelo Genero do Autor Escolhido').Layout(layout)
             button = window.Read()

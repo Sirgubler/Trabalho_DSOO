@@ -11,14 +11,14 @@ class TelaGenero:
         [sg.Button('Cadastrar Genero'), sg.Button('Alterar Genero'), sg.Button('Listar Generos'), sg.Button('Remover Genero'), sg.Button('Pesquisar Generos'), ],
         [sg.Button('Voltar', size=(6,1))]
         ]
-        window = sg.Window('Menu Autor', element_justification='c', default_button_element_size=(16, 4), auto_size_buttons=False, grab_anywhere=False, size=(1280, 160)).Layout(layout)
+        window = sg.Window('Menu Autor', element_justification='c', default_button_element_size=(16, 4), auto_size_buttons=False, grab_anywhere=False, size=(800, 160)).Layout(layout)
         button = window.Read()
         window.Close()
         return button[0]
 
     def altera_genero_livro(self):
         layout = [
-        [sg.Text('Digite o nome do Genero: ', size=(15, 1)), sg.InputText(key = 'genero')],
+        [sg.Text('Digite o nome do Genero: ', size=(20, 1)), sg.InputText(key = 'genero')],
         [sg.Button('Alterar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Alteracao de Genero do Livro').Layout(layout)
@@ -31,7 +31,7 @@ class TelaGenero:
     
     def cadastra_genero(self):
         layout = [
-        [sg.Text('Digite o nome do Genero: ', size=(15, 1)), sg.InputText(key = 'genero')],
+        [sg.Text('Digite o nome do Genero: ', size=(20, 1)), sg.InputText(key = 'genero')],
         [sg.Button('Cadastrar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Cadastrando um novo Genero').Layout(layout)
@@ -44,7 +44,7 @@ class TelaGenero:
 
     def altera_genero(self):
         layout = [
-        [sg.Text('Digite o nome do Genero: ', size=(15, 1)), sg.InputText(key = 'genero')],
+        [sg.Text('Digite o nome do Genero: ', size=(20, 1)), sg.InputText(key = 'genero')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Buscar Genero para Alteracao').Layout(layout)
@@ -57,7 +57,7 @@ class TelaGenero:
 
     def alteracao(self):
         layout = [
-        [sg.Text('Digite o novo nome do Genero: ', size=(15, 1)), sg.InputText(key = 'genero')],
+        [sg.Text('Digite o novo nome do Genero: ', size=(20, 1)), sg.InputText(key = 'genero')],
         [sg.Button('Pesquisar'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Alteracao de Genero').Layout(layout)
@@ -73,7 +73,7 @@ class TelaGenero:
             layout = [
                 ]
             for genero in generos:
-                layout.append([sg.Text('Genero de nome: {}'.format(genero), size=(15, 1))])
+                layout.append([sg.Text('Genero de nome: {}'.format(genero), size=(20, 1))])
             layout.append([sg.Button('Voltar', size=(6,1))])
             window = sg.Window('Lista de Generos').Layout(layout)
             button = window.Read()
@@ -85,7 +85,7 @@ class TelaGenero:
 
     def remove_genero(self):
         layout = [
-        [sg.Text('Digite o nome do Genero: ', size=(15, 1)), sg.InputText(key = 'genero')],
+        [sg.Text('Digite o nome do Genero: ', size=(20, 1)), sg.InputText(key = 'genero')],
         [sg.Button('Remover'), sg.Button('Cancelar')],
         ]
         window = sg.Window('Deletando Genero').Layout(layout)
