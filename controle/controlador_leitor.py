@@ -23,7 +23,7 @@ class ControladorLeitor():
                         if leitor.senha == leitor_escolhido[1]:
                             self.abrir_menu_leitor(leitor)
                             return
-                raise LoginInvalido()
+                assert LoginInvalido()
             else:
                 return
 
@@ -33,7 +33,8 @@ class ControladorLeitor():
             leitores = self.__dao.get_all()
             for leitor in leitores:
                 if info[0] == leitor.nome:
-                    raise UsuarioCadastrado(str(type(leitor).__name__))
+                    assert UsuarioCadastrado(str(type(leitor).__name__))
+                    return
             codigo = (len(self.__dao.get_all()) + 1)
             self.__dao.add(Leitor(info[0],info[1],codigo))
         else:
@@ -102,6 +103,14 @@ class ControladorLeitor():
         for leitor in leitores:
             if livro.titulo in leitor.livros_lidos.keys():
                 leitor.livros_lidos.pop(livro.titulo)
+                self.__dao.add(leitor)
                                             
-                
-                
+    def alterar_nota(self, livro):
+        leitores = self.__dao.get_all()
+        for leitor in leitores:
+            if livro.titulo in leitor.livros_lidos.keys():
+                for livro_lido in leitor.livros_lidos.keys():
+                    if livro_lido == livro.titulo:
+                        livro_lido = livro.titulo
+                        break
+                self.__dao.add(leitor)

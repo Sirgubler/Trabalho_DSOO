@@ -85,7 +85,7 @@ class ControladorLivro():
                         funcao_escolhida(livro_encontrado)
                 else:
                     self.alterar_livro()      
-
+        self.__dao.add(livro)
         self.abrir_tela_livro()
     
     def altera_titulo(self, livro_encontrado: Livro):
@@ -100,6 +100,7 @@ class ControladorLivro():
         if naoexisteTitulo:
             livro_encontrado.titulo = titulo_alterado
             self.__tela_livro.aviso_sucesso()
+            self.__controlador_principal.alterar(livro_encontrado)
     
     def altera_autor(self, livro_encontrado: Livro):
         novo_autor = self.__controlador_autor.alterar_autor_livro()

@@ -67,3 +67,7 @@ class ControladorPrincipal:
     def remover(self, livro):
         self.__controlador_critico.remover_analise(livro)
         self.__controlador_leitor.remover_nota(livro)
+
+    def alterar(self, livro):
+        self.__controlador_critico.alterar_analise(livro)
+        self.__controlador_leitor.alterar_nota(livro)

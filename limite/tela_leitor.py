@@ -81,7 +81,7 @@ class TelaLeitor():
             window.Read()
             window.Close()   
         else:
-            raise NenhumLivro('Leitor')     
+            assert NenhumLivro('Leitor')     
 
     def aviso(self, tipo):
         if tipo == 1:
