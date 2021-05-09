@@ -423,6 +423,18 @@ class ControladorLivro():
                         livro_objeto = livro
         
         return livro_objeto
+    
+    def sincronia_autor(self, autor_encontrado, nome):
+        for livro in self.__dao.get_all():
+            if livro.autor == autor_encontrado:
+                autor_do_livro = livro.autor
+                autor_do_livro.nome = nome
+
+    def sincronia_genero(self, genero_encontrado, nome):
+        for livro in self.__dao.get_all():
+            if livro.genero == genero_encontrado:
+                genero_do_livro = livro.genero
+                genero_do_livro.nome =     
                 
     def fechar_tela_livro(self):
         self.__manter_tela_aberta = False
