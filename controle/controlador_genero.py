@@ -87,7 +87,7 @@ class ControladorGenero:
         if existeGenero:
             novo_nome = self.__tela_genero.alteracao()
             if novo_nome != None:
-                self.__controlador_livro.sincronia_genero(genero_encontrado, novo_nome)
+                self.__controlador_livro.sincronia_genero(genero_encontrado, novo_nome)           
                 genero_encontrado.nome = novo_nome
             else:
                 self.abrir_tela_genero()

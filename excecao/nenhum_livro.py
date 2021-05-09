@@ -6,3 +6,5 @@ class NenhumLivro(Exception):
             sg.popup('Nunhum Livro Lido!')
         elif obj == 'Critico':
             sg.popup('Nunhum Livro Analisado!')
+        elif obj == 'Livro':
+            sg.popup('Nenhum Livro Cadastrado')

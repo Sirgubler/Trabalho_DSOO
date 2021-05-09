@@ -3,6 +3,7 @@ from limite.tela_livro import TelaLivro
 from controle.controlador_autor import ControladorAutor
 from controle.controlador_genero import ControladorGenero
 from persistencia.livro_dao import LivroDAO
+from excecao.nenhum_livro import NenhumLivro
 
 
 class ControladorLivro():
@@ -85,7 +86,7 @@ class ControladorLivro():
                         funcao_escolhida(livro_encontrado)
                 else:
                     self.alterar_livro()      
-
+        self.__dao.add(livro)
         self.abrir_tela_livro()
     
     def altera_titulo(self, livro_encontrado: Livro):
@@ -100,6 +101,7 @@ class ControladorLivro():
         if naoexisteTitulo:
             livro_encontrado.titulo = titulo_alterado
             self.__tela_livro.aviso_sucesso()
+            self.__controlador_principal.alterar(livro_encontrado)
     
     def altera_autor(self, livro_encontrado: Livro):
         novo_autor = self.__controlador_autor.alterar_autor_livro()
@@ -121,7 +123,7 @@ class ControladorLivro():
             else:
                 self.abrir_tela_livro()
         else:
-            self.__tela_livro.aviso_erro()
+            assert NenhumLivro('Livro')
             self.abrir_tela_livro()
 
     def mostrar_livro(self, livro_escolhido):
@@ -434,7 +436,7 @@ class ControladorLivro():
         for livro in self.__dao.get_all():
             if livro.genero == genero_encontrado:
                 genero_do_livro = livro.genero
-                genero_do_livro.nome = nome
+                genero_do_livro.nome =  nome  
                 
     def fechar_tela_livro(self):
         self.__manter_tela_aberta = False

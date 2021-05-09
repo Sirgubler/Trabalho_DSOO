@@ -25,7 +25,7 @@ class TelaGenero:
         botao, dados_tela = window.Read()
         window.Close()
         if botao == 'Alterar':
-            return dados_tela['autor']
+            return dados_tela['genero']
         else:
             return None
     
@@ -81,7 +81,17 @@ class TelaGenero:
             return button[0]
 
     def mostra_genero(self, dados_genero):
-        print(dados_genero['nome'])
+        if dados_genero != {}:
+            layout = [
+            [sg.Text('Genero: {}'.format(dados_genero['nome']), size=(20, 1))],
+            [sg.Button('Voltar')],
+            ]
+            window = sg.Window('Mostrando Genero').Layout(layout)
+            button = window.Read()
+            window.Close()
+            if button == 'Voltar':
+                return 'Voltar'
+
 
     def remove_genero(self):
         layout = [
@@ -106,5 +116,8 @@ class TelaGenero:
         window.Close()
         return button[0]
 
+    def aviso_sucesso(self):
+        sg.popup('Secesso!')
+
     def aviso_erro(self):
-        print('ERRO!\nDigite um valor válido!')
+        sg.popup('Erro!')

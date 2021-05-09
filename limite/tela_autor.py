@@ -81,7 +81,16 @@ class TelaAutor:
             return None
 
     def mostra_autor(self, dados_autor):
-        print(dados_autor['nome'])
+        if dados_autor != {}:
+            layout = [
+            [sg.Text('Autor: {}'.format(dados_autor['nome']), size=(20, 1))],
+            [sg.Button('Voltar')],
+            ]
+            window = sg.Window('Mostrando Autor').Layout(layout)
+            button = window.Read()
+            window.Close()
+            if button == 'Voltar':
+                return 'Voltar'
 
     def pesquisa_autores(self):
         layout = [
@@ -106,5 +115,8 @@ class TelaAutor:
         else:
             return None  
 
+    def aviso_sucesso(self):
+        sg.popup('Secesso!')
+
     def aviso_erro(self):
-        print('ERRO!\nDigite um valor válido!')
+        sg.popup('Erro!')
