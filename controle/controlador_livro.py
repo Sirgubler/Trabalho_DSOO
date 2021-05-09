@@ -3,6 +3,7 @@ from limite.tela_livro import TelaLivro
 from controle.controlador_autor import ControladorAutor
 from controle.controlador_genero import ControladorGenero
 from persistencia.livro_dao import LivroDAO
+from excecao.nenhum_livro import NenhumLivro
 
 
 class ControladorLivro():
@@ -122,7 +123,7 @@ class ControladorLivro():
             else:
                 self.abrir_tela_livro()
         else:
-            self.__tela_livro.aviso_erro()
+            assert NenhumLivro('Livro')
             self.abrir_tela_livro()
 
     def mostrar_livro(self, livro_escolhido):

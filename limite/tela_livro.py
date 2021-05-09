@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from excecao.impressoes import Impressoes
 
 class TelaLivro():
 
@@ -218,7 +219,7 @@ class TelaLivro():
             window.Read()
             window.Close() 
         else:
-            self.aviso_erro()
+            assert Impressoes('Critico')
 
     def mostra_notas(self, notas: dict):
         if notas != {}:
@@ -231,10 +232,10 @@ class TelaLivro():
             window.Read()
             window.Close() 
         else:
-            self.aviso_erro()
+            assert Impressoes('Leitor')
         
     def aviso_sucesso(self):
-        pass
+        sg.popup('Secesso!')
 
     def aviso_erro(self):
         sg.popup('Erro!')
