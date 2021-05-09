@@ -108,7 +108,7 @@ class TelaCritico():
         [sg.Text('Digite sua nova senha:'), sg.InputText(size=(45,1), password_char='*')],
         [sg.ReadButton('Alterar', size=(6,1)), sg.ReadButton('Voltar', size=(6,1))]
         ]
-        window = sg.Window('Deletar Crítico').Layout(layout)
+        window = sg.Window('Alterar Senha').Layout(layout)
         button, senha = window.Read()
         window.Close()
         if button == 'Alterar':

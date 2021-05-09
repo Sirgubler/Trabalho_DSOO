@@ -101,6 +101,7 @@ class ControladorCritico():
         if opcao[1] == 'Alterar':
             critico.senha = opcao[0][0]
             self.__tela_critico.aviso(5)
+            self.__dao.add(critico)
 
     def analises(self):
         criticos = self.__dao.get_all()

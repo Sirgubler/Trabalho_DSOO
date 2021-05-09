@@ -77,7 +77,7 @@ class ControladorLeitor():
     #Não confundir com o abrir_tela_leitor onde estão as opções de 'login' ou cadastro
     def abrir_menu_leitor(self, leitor: Leitor):
         nome = leitor.nome
-        opcoes = {'Ver livros lidos': self.retornar_livros, 'Incluir um livro lido': self.incluir_livro_lido, 'Voltar': self.abrir_tela_leitor}
+        opcoes = {'Ver livros lidos': self.retornar_livros, 'Incluir um livro lido': self.incluir_livro_lido, 'Alterar Senha': self.alterar_senha, 'Deletar Leitor': self.deletar_leitor, 'Voltar': self.abrir_tela_leitor}
         while self.__manter_tela_aberta:
             opcao_escolhida = self.__tela_leitor.menu_leitor(nome)
             if opcao_escolhida == 'Voltar':
@@ -86,6 +86,20 @@ class ControladorLeitor():
             else:
                 funcao_escolhida = opcoes[opcao_escolhida]
                 funcao_escolhida(leitor)
+
+    def deletar_leitor(self, leitor: Leitor):
+        opcao = self.__tela_leitor.deletar_leitor(leitor.nome)
+        if opcao == 'Deletar':
+            self.__dao.remove(leitor.codigo)
+            self.__tela_leitor.aviso(4)
+            self.abrir_tela_leitor()
+
+    def alterar_senha(self, leitor: Leitor):
+        opcao = self.__tela_leitor.alterar_senha()
+        if opcao[1] == 'Alterar':
+            leitor.senha = opcao[0][0]
+            self.__tela_leitor.aviso(5)
+            self.__dao.add(leitor)
 
     def notas(self):
         leitores = self.__dao.get_all()

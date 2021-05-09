@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from excecao.nenhum_livro import NenhumLivro
+from excecao.nome_invalido import NomeInvalido
 
 class TelaLeitor():
 
@@ -62,10 +63,10 @@ class TelaLeitor():
     def menu_leitor(self, nome):
         sg.ChangeLookAndFeel('DarkGrey3')
         layout = [
-        [sg.ReadButton('Ver livros lidos'), sg.ReadButton('Incluir um livro lido')],
+        [sg.ReadButton('Ver livros lidos'), sg.ReadButton('Incluir um livro lido'), sg.ReadButton('Alterar Senha'), sg.ReadButton('Deletar Leitor')],
         [sg.ReadButton('Voltar', size=(6,1))]
         ]
-        window = sg.Window('Leitor: {}'.format(nome), element_justification='c', default_button_element_size=(20, 4), auto_size_buttons=False, grab_anywhere=False, size=(400, 125)).Layout(layout)
+        window = sg.Window('Leitor: {}'.format(nome), element_justification='c', default_button_element_size=(20, 4), auto_size_buttons=False, grab_anywhere=False, size=(800, 125)).Layout(layout)
         button = window.Read()
         window.Close()
         return button[0]
@@ -82,6 +83,31 @@ class TelaLeitor():
             window.Close()   
         else:
             assert NenhumLivro('Leitor')     
+
+    def deletar_leitor(self, leitor):
+        layout = [
+        [sg.Text('Tem certeza que deseja deletar este leitor? Essa ação é irreversíel.')],
+        [sg.Text('Para deletar, digite o nome do Leitor:'), sg.InputText(size=(45,1))],
+        [sg.ReadButton('Deletar', size=(6,1)), sg.ReadButton('Voltar', size=(6,1))]
+        ]
+        window = sg.Window('Deletar Leitor').Layout(layout)
+        button, nome = window.Read()
+        window.Close()
+        if button == 'Deletar' and nome[0] == leitor:
+            return button
+        elif nome[0] != leitor and button != 'Voltar':
+            assert NomeInvalido('Leitor')
+
+    def alterar_senha(self):
+        layout = [
+        [sg.Text('Digite sua nova senha:'), sg.InputText(size=(45,1), password_char='*')],
+        [sg.ReadButton('Alterar', size=(6,1)), sg.ReadButton('Voltar', size=(6,1))]
+        ]
+        window = sg.Window('Alterar Senha').Layout(layout)
+        button, senha = window.Read()
+        window.Close()
+        if button == 'Alterar':
+            return senha, button
 
     def aviso(self, tipo):
         if tipo == 1:
@@ -100,3 +126,7 @@ class TelaLeitor():
                 return True
             else:
                 return False
+        elif tipo == 4:
+            sg.popup('Leitor Deletado!')
+        elif tipo == 5:
+            sg.popup('Senha Alterada')
