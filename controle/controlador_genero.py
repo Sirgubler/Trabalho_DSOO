@@ -1,19 +1,55 @@
 from entidade.genero import Genero
 from limite.tela_genero import TelaGenero
+from persistencia.genero_dao import GeneroDAO
 
 class ControladorGenero: 
 
     def __init__(self, controlador_livro):        
-        self.__generos = []
         self.__tela_genero = TelaGenero()
         self.__controlador_livro = controlador_livro
         self.__manter_tela_aberta = True
+        self.__dao = GeneroDAO()
+
+    def naoexisteGenero(self, nome: str):
+        naoexisteGenero = True
+        genero_enviado = None
+
+        for genero in self.__dao.get_all():
+            if genero.nome == nome:
+                naoexisteGenero = False
+                genero_enviado = genero
+                break
+        if naoexisteGenero:
+            novo_genero = Genero(nome)
+            self.__dao.add(novo_genero)
+            genero_enviado = novo_genero
+        
+        return genero_enviado
+    
+    def pega_nome(self, genero: Genero):
+        nome = genero.nome
+        return nome
+
+    def alterar_genero_livro(self):
+        naoexisteGenero = True
+        nome = self.__tela_genero.altera_genero_livro()
+
+        for genero in self.__dao.get_all():
+            if genero.nome == nome:
+                naoexisteGenero = False
+                novo_genero = genero
+                break
+        if naoexisteGenero:
+            novo_genero = Genero(nome)
+            self.__dao.add(novo_genero)
+
+        return novo_genero
 
     def abrir_tela_genero(self):
         self.__manter_tela_aberta = True
-        lista_opcoes = {1: self.incluir_genero, 2: self.listar_generos, 3: self.excluir_genero, 0: self.fechar_tela_genero}
+        lista_opcoes = {'Cadastrar Genero': self.cadastrar_genero, 'Alterar Genero': self.alterar_genero, 'Listar Generos': self.listar_generos, 'Remover Genero': self.remover_genero, 'Pesquisar Generos': self.pesquisar_generos, 'Voltar': self.fechar_tela_genero}
         while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_genero.tela_opcoes()
+            opcao_escolhida = self.__tela_genero.menu_genero()
             try:
                 funcao_escolhida = lista_opcoes[opcao_escolhida]
             except Exception:
@@ -23,51 +59,113 @@ class ControladorGenero:
 
         self.__controlador_livro.abrir_tela_livro()
 
-    def incluir_genero(self):
+    def cadastrar_genero(self):
         naoexisteGenero = True
-        nome_genero = self.__tela_genero.pega_nome_genero()
-        novo_genero = Genero(nome_genero)
+        nome = self.__tela_genero.cadastra_genero()
+        
+        if nome != None:
+            for genero in self.__dao.get_all():
+                if genero.nome == nome:
+                    naoexisteGenero = False
+                    break
+            if naoexisteGenero:
+                novo_genero = Genero(nome)
+                self.__dao.add(novo_genero)
+        
+        self.abrir_tela_genero()
 
-        for genero in self.__generos:
-            if genero.nome == nome_genero:
-                naoexisteGenero = False
-        if naoexisteGenero:
-            self.__generos.append(novo_genero)
-            self.__tela_genero.sucesso_registro()
-        else:
-            self.__tela_genero.falha_registro()
+    def alterar_genero(self):
+        existeGenero = False
+        genero_alterado = self.__tela_genero.altera_genero()
+        genero_encontrado = None
 
-        return nome_genero
+        for genero in self.__dao.get_all():
+            if genero.nome == genero_alterado:
+                existeGenero = True
+                genero_encontrado = genero
+                break
+        if existeGenero:
+            novo_nome = self.__tela_genero.alteracao()
+            if novo_nome != None:
+                self.__controlador_livro.sincronia_genero(genero_encontrado, novo_nome)           
+                genero_encontrado.nome = novo_nome
+            else:
+                self.abrir_tela_genero()
+        
+        self.abrir_tela_genero()
 
     def listar_generos(self):
-        naoexisteGenero = True
-        lista_generos = []
-        generos = self.__generos
-        for genero in generos:
-            nome_genero = genero.nome
-            lista_generos.append(nome_genero)
-            self.__tela_genero.mostra_genero(nome_genero)
-            naoexisteGenero = False
-        if naoexisteGenero:
-            self.__tela_genero.falha_busca()
+        generos = []
+
+        for genero in self.__dao.get_all():
+            generos.append(genero.nome)
+
+        genero_escolhido = self.__tela_genero.lista_generos(generos)
         
-        return lista_generos
+        if genero_escolhido == 'Voltar':
+            self.abrir_tela_genero()
 
-    def excluir_genero(self):
-        naoexisteGenero = True
-        nome_genero = self.__tela_genero.pega_nome_genero()
+    def mostrar_genero(self, genero_escolhido):
+        existeGenero = False        
+        dados_genero = {}
+        genero_encontrado = None
 
-        for genero in self.__generos:
-            if genero.nome == nome_genero:
-                self.__generos.remove(genero)
-                naoexisteGenero = False
-        if naoexisteGenero:
-            self.__tela_genero.falha_exclusao()
+        for genero in self.__dao.get_all():
+            if genero.nome == genero_escolhido:
+                existeGenero = True
+                genero_encontrado = genero
+                break
+        if existeGenero:
+            nome = genero_encontrado.nome
+            dados_genero = {'nome': nome}
+            self.__tela_genero.mostra_genero(dados_genero)
+           
+        self.abrir_tela_genero()
+    
+    def remover_genero(self):
+        existeGenero = False
+        nome = self.__tela_genero.remove_genero()
+        genero_encontrado = None
 
-    def exclusao_genero(self, genero_excluido):
-        for genero in self.__generos:
-            if genero.nome == genero_excluido:
-                self.__generos.remove(genero)
+        if nome != None:
+            for genero in self.__dao.get_all():
+                if genero.nome == nome:
+                    existeGenero = True
+                    genero_encontrado = genero
+                    break
+            if existeGenero:
+                self.__controlador_livro.remove_genero(nome)
+                self.__dao.remove(genero_encontrado)
+            else:
+                self.__tela_genero.aviso_erro()
+
+        self.abrir_tela_genero()   
+
+    def pesquisar_generos(self):
+        self.__manter_tela_aberta = True
+        lista_opcoes = {'Pesquisar Livros do Genero': self.pesquisar_titulo, 'Pesquisar Autores do Genero': self.pesquisar_autores, 'Voltar': self.fechar_tela_genero}
+        while self.__manter_tela_aberta:
+            opcao_escolhida = self.__tela_genero.pesquisa_generos()
+            try:
+                funcao_escolhida = lista_opcoes[opcao_escolhida]
+            except Exception:
+                self.__tela_genero.aviso_erro()
+            else:
+                funcao_escolhida()      
+
+        self.abrir_tela_genero()
+ 
+    def pesquisar_titulo(self):
+        self.__controlador_livro.pesquisar_genero_livros()
+
+    def pesquisar_autores(self):
+        self.__controlador_livro.pesquisar_genero_autores()
 
     def fechar_tela_genero(self):
         self.__manter_tela_aberta = False
+
+    def genero_deletado(self):
+        nome = 'Autor Deletado'
+        genero_deletado = Genero(nome)
+
+        return genero_deletado
