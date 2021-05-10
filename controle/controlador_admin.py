@@ -9,15 +9,17 @@ class ControladorAdmin():
 
     def abrir_tela_admin(self):
         self.__manter_tela_aberta = True
-        opcoes = {1: self.cadastrar_critico, 0: self.voltar_tela_principal}   
-        while self.__manter_tela_aberta:
-            opcao_escolhida = self.__tela_admin.menu_principal()
-            try:
+        senha = self.__tela_admin.login()
+        if senha != None and senha == 'Senha123':
+            opcoes = {'Cadastrar Crítico': self.cadastrar_critico, 'Voltar': self.voltar_tela_principal}   
+            while self.__manter_tela_aberta:
+                opcao_escolhida = self.__tela_admin.menu_principal()
                 funcao_escolhida = opcoes[opcao_escolhida]
-            except Exception:
-                self.__tela_admin.aviso_erro()
-            else:  
                 funcao_escolhida()
+        elif senha == None:
+            self.__manter_tela_aberta == False
+        else:
+            self.__tela_admin.aviso(1)
 
     def cadastrar_critico(self):
         self.__controlador_principal.cadastrar_critico()
